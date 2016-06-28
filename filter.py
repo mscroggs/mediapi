@@ -14,9 +14,10 @@ if filtnow!=filt:
   f=open('/home/pi/player/db')
   lines=f.readlines()
   f.close()
+  reg = filt
   for f,r in filters.items():
       if filt == f:
-        reg = r  
+        reg = r
   i=0
   output=[]
   for line in lines:
