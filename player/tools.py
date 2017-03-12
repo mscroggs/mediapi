@@ -78,5 +78,7 @@ def remove_first_from_queue():
         return _json.dump(q[1:],f)
 
 def save_info(info):
+    if info["play"] != "off":
+        info["pause"] = pause()
     with open(_os.path.join(player_dir,"info.json"),"w") as f:
         return _json.dump(info,f)

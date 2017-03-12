@@ -46,7 +46,7 @@ class MusicPlayer(GenericVLCPlayer):
         super(MusicPlayer, self).__init__()
         import library
         self.library = library.MusicLibrary()
-        self.info = {"current":-1,"pos":0,"more":None}
+        self.info = {"play":"music","current":-1,"pos":0,"more":None}
         self.play_next()
 
     def get_pos(self):
@@ -57,10 +57,9 @@ class MusicPlayer(GenericVLCPlayer):
 
     def tick_over(self):
         if self.has_ended():
-            self.wplay_next()
+            self.play_next()
         if int(time())!=self.time:
             self.info["pos"] = self.get_pos()
-            print self.info
             tools.save_info(self.info)
             self.time = int(time())
 
@@ -96,18 +95,18 @@ class MusicPlayer(GenericVLCPlayer):
 
 class RadioPlayer(GenericVLCPlayer):
     def __init__(self):
-        super(MusicPlayer, self).__init__()
+        super(RadioPlayer, self).__init__()
+        import library
         self.library = library.RadioLibrary()
-        self.info = {"playing":0,"more":None}
+        self.info = {"play":"radio","playing":0,"more":None}
 
     def tick_over(self):
         rc = tools.radio_channel()
         if rc != self.info["playing"]:
             self.info["playing"] = rc
-            self.info["more"] = self.library.get_item(i)
+            self.info["more"] = self.library.get_item(rc)
             self.set_media = self.library.get_url(rc)
         if int(time())!=self.time:
             self.info["pos"] = self.get_pos()
-            print self.info
             tools.save_info(self.info)
             self.time = int(time())

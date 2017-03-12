@@ -1,13 +1,23 @@
-body	{background-color:transparent;color:#000000; margin:0px;text-align:center;margin-top:26px;margin-left:200px}
-td	{text-align:left}
-table	{border-collapse:collapse}
-td a	{display:block;color:#000044;text-decoration:none}
-td a:hover {color:#6666FF}
+table {width:100%;border-collapse:collapse}
+.tr0 {background-color:#CCCCFF}
+.tr0 td,.tr1 td {padding:2px}
+.tr0 td a,.tr1 td a {color:#000044}
+.tr0 td a:hover,.tr1 td a:hover {color:#449944}
 
-tr.r0 {background-color:#FA9E9E}
-tr.r1 {background-color:#FFBE9E}
-tr.r2 {background-color:#FFF79E}
-tr.r3 {background-color:#9EFFA1}
-tr.r4 {background-color:#9ED3FF}
-tr.r5 {background-color:#9E9EFF}
-tr.r6 {background-color:#E09EFF}
+@media (max-width:1000px){
+    #playing-info {font-size:30px}
+    #onoff {font-size:80px}
+}
+
+body	{background-color:transparent;color:#000000; margin:0px;}
+
+
+a        {text-decoration:none}
+
+#time-background {z-index:-5;height:100px;position:absolute;top:0;left:0;background-color:#CCCCFF}
+#playing-info {height:95px;border-bottom:2px solid black;position:abolute;top:0;right:0;left:0;padding-right:5px;padding-top:5px;padding-left:5px;overflow:hidden}
+
+#onoff, .cent {text-align:center;margin-top:10px}
+
+#skip, #pause {margin-right:40px;margin-left:40px}
+

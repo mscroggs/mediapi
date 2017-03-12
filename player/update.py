@@ -63,7 +63,7 @@ with open(tools.db_json("artists"),"w") as f:
 
 for i,a in enumerate(artists):
     with open(tools.db_json("by_artist",i),"w") as f:
-        json.dump([i for i,s in enumerate(all_music) if s[2]==a],f)
+        json.dump({i:s for i,s in enumerate(all_music) if s[2]==a},f)
 
 with open(os.path.join(tools.player_dir,"filters.json")) as f:
     filters = json.load(f)
