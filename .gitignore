@@ -1,0 +1,5 @@
+pips.mp3
+Music
+*.pyc
+.*
+!.gitignore
