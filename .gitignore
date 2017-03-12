@@ -1,5 +1,14 @@
 pips.mp3
-Music
 *.pyc
 .*
+*.log
+player/options.json
+
 !.gitignore
+
+Music/*
+!Music/The_Noise_Engine
+Music/The_Noise_Engine/*
+!Music/The_Noise_Engine/Seed
+Music/The_Noise_Engine/Seed/*
+!Music/The_Noise_Engine/Seed/*.mp3
