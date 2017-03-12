@@ -6,6 +6,7 @@ player/options.json
 player/db/*.json
 player/db/*/*.json
 player/log
+player/queue.json
 
 !.gitignore
 
