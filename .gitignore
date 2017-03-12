@@ -3,6 +3,9 @@ pips.mp3
 .*
 *.log
 player/options.json
+player/db/*.json
+player/db/*/*.json
+player/log
 
 !.gitignore
 
@@ -12,3 +15,5 @@ Music/The_Noise_Engine/*
 !Music/The_Noise_Engine/Seed
 Music/The_Noise_Engine/Seed/*
 !Music/The_Noise_Engine/Seed/*.mp3
+
+

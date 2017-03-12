@@ -1,59 +1,74 @@
+import config
+
 from mutagen.id3 import ID3
 from mutagen import ogg
 import os
 import re
+import json
 
-def sorty(tx):
-	tx2=tx.lower().split(u"#|#")
-	if tx2[3][0:3]=='the':
-		tx2[3]=tx2[3][4:]
-	return tx2[3]+" "+tx2[4]+" "+('{0}'.format(tx2[1].zfill(2)))
+def sort_key(a):
+    return a[2]+" "+a[3]+" "+str(a[0]).zfill(4)
 
+def wanted(f):
+    if f[-4:]!=".mp3":
+        return False
+    return True
 
-output=[]
-for root, dirs, files in os.walk("/home/pi/Music"):
-	dirs.sort()
-	print root
-	files.sort()
-	for file in files:
-		a=os.path.join(root,file)
-		audio=ID3(a)
-		b=audio.pprint().splitlines()
-		dict={}
-		for c in b:
-			c=c.partition("=")
-			inn=c[0]
-			outt=c[2]
-			if inn=="TRCK":
-				outt=outt.partition("/")[0]
-			dict[inn]=outt
-		output.append((a+"#|#"+dict["TRCK"]+"#|#"+dict["TIT2"]+"#|#"+dict["TPE1"]+"#|#"+dict["TALB"]+"\n").encode('ascii','ignore'))
+def get_tag(tags,t):
+    out = tags[t].text[0]
+    if t == "TRCK":
+        out = int(out.split("/")[0])
+    return out
 
-output.sort(key=sorty)
+def re_match(rex,s):
+    if re.search(rex,s[1],re.IGNORECASE):
+        return True
+    if re.search(rex,s[2],re.IGNORECASE):
+        return True
+    if re.search(rex,s[3],re.IGNORECASE):
+        return True
+    return False
 
-#print output
+all_music = []
+artists = []
 
-#output2=output2.encode('ascii','ignore')
+for root, dirs, files in os.walk(config.music_dir):
+    print root
+    for file in [f for f in files if wanted(f)]:
+        full_file = os.path.join(root, file)
+        tags = ID3(full_file)
 
-f=open("/home/pi/player/db","w")
-f.writelines(output)
-f.close()
+        num = get_tag(tags,"TRCK")
+        title = get_tag(tags,"TIT2")
+        artist = get_tag(tags,"TPE1")
+        album = get_tag(tags,"TALB")
+        track = [num, title, artist, album, full_file]
+        all_music.append(track)
 
-#def xmas(inp):
-#	return re.search(r'christmas|xmas|fairytale of new york',inp,re.I)
-#
-#def jazz(inp):
-#return re.search(r'john coltrane|miles davis|eric dolphy|keith jarrett|charles mingus|billie holiday|nina simone|louis armstrong|fela kuti|charles mingus|sun ra',inp,re.I)
-#
-#output2=filter(xmas,output)
-#
-#f=open("/home/pi/player/db-xmas","w")
-#f.writelines(output2)
-#f.close()
-#
-#output2=filter(jazz,output)
-#
-#f=open("/home/pi/player/db-jazz","w")
-#f.writelines(output2)
-#f.close()
-#
+        if artist not in artists:
+            artists.append(artist)
+
+all_music.sort(key=sort_key)
+artists.sort()
+
+for i,s in enumerate(all_music):
+    with open(config.db_json("full",i),"w") as f:
+        json.dump(s,f)
+
+with open(config.db_json("artists"),"w") as f:
+    json.dump(artists,f)
+
+for i,a in enumerate(artists):
+    with open(config.db_json("by_artist",i),"w") as f:
+        json.dump([i for i,s in enumerate(all_music) if s[2]==a],f)
+
+with open(os.path.join(config.player_dir,"filters.json")) as f:
+    filters = json.load(f)
+
+for i,filt in enumerate(filters):
+    with open(config.db_json("filters",i),"w") as f:
+        json.dump([i for i,s in enumerate(all_music) if re_match(filt[1],s)],
+                  f)
+
+with open(config.db_json("info"),"w") as f:
+    json.dump({"length":len(all_music),"artists":len(artists)},f)
