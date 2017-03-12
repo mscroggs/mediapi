@@ -1,2 +1,2 @@
 mutagen
-pygame
+python-vlc

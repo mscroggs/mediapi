@@ -1,17 +1,16 @@
-import config
+import tools
 import json
-import options
 
-class Library:
+class MusicLibrary:
     def __init__(self):
-        self.length = options.length()
+        self.length = tools.length()
 
     def get_filtered_list(self):
-        with open(config.db_json("filters",options.filt())) as f:
+        with open(tools.db_json("filters",tools.filt())) as f:
             return json.load(f)
 
     def get_item(self,i):
-        with open(config.db_json("full",i)) as f:
+        with open(tools.db_json("full",i)) as f:
             return json.load(f)
 
     def get_track_number(self,i):
@@ -28,3 +27,16 @@ class Library:
 
     def get_filename(self,i):
         return self.get_item(i)[4]
+
+    def get_length(self,i):
+        return self.get_item(i)[5]
+
+class RadioLibrary:
+    def get_item(self,i):
+        return tools.get_radio_list()[i]
+
+    def get_name(self,i):
+        return self.get_item(i)[0]
+
+    def get_url(self,i):
+        return self.get_item(i)[1]

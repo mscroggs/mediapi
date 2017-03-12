@@ -1,22 +1,29 @@
 from player import MusicPlayer, RadioPlayer
-import options
+import tools
 
 while True:
-    if options.play_music():
+    if tools.play_music():
         player = MusicPlayer()
-        while options.play_music():
-            if options.pause():
+        while tools.play_music():
+            # PAUSE
+            if tools.pause():
                 player.pause()
-                while options.pause() and options.play_music():
+                while tools.pause() and tools.play_music():
                     pass
                 player.unpause()
-            if not player.is_queued():
-                player.queue_next()
+            # SKIP
+            if tools.skip():
+                player.skip()
+            player.tick_over()
         player.stop()
 
-    if options.play_radio():
-        pass
-    if options.off():
+    if tools.play_radio():
+        player = RadioPlayer()
+        while tools.play_radio():
+            player.tick_over()
+        player.stop()
+
+    if tools.off():
         continue
 
 initd=False;
