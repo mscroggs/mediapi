@@ -89,6 +89,9 @@ function load_info(){
                 if(info["play"]=="radio" && browser_showing!="radio"){
                     start_radio_browser()
                 }
+                if(info["play"]=="off" && browser_showing!="off"){
+                    start_off_browser()
+                }
             }
         }
         loader.open('GET','load_info.php',true);
@@ -98,17 +101,18 @@ function load_info(){
 }
 
 function turn_off(){
-    document.getElementById("browser").innerHTML=""
     send_changes("play=off")
-    browser_showing="off"
 }
 function turn_music_on(){
     send_changes("play=music")
-    start_music_browser()
 }
 function turn_radio_on(){
     send_changes("play=radio")
-    start_radio_browser()
+}
+
+function start_off_browser(){
+    document.getElementById("browser").innerHTML=""
+    browser_showing="off"
 }
 
 function start_music_browser(){
@@ -141,9 +145,21 @@ function show_artist(i){
     loader.send();
     loading++;
 }
+
 function start_radio_browser(){
     browser_showing="radio"
-    /* NOT IMPLEMENTED */
+    var loader;
+    if(window.XMLHttpRequest){loader=new XMLHttpRequest();}
+    else {loader=new ActiveXObject('Microsoft.XMLHTTP');}
+    loader.onreadystatechange=function(){
+        if (loader.readyState==4 && loader.status==200){
+            loading--;
+            document.getElementById("browser").innerHTML=loader.responseText
+        }
+    }
+    loader.open('GET','load_radio.php',true);
+    loader.send();
+    loading++;
 }
 function queue_up_song(i){
     var queuer;
@@ -159,7 +175,17 @@ function queue_up_song(i){
     loading++;
 }
 function queue_up_album(i){
-    /* NOT IMPLEMENTED */
+    var queuer;
+    if(window.XMLHttpRequest){queuer=new XMLHttpRequest();}
+    else {queuer=new ActiveXObject('Microsoft.XMLHTTP');}
+    queuer.onreadystatechange=function(){
+        if (queuer.readyState==4 && queuer.status==200){
+            loading--;
+        }
+    }
+    queuer.open('GET','add_to_queue.php?list='+i,true);
+    queuer.send();
+    loading++;
 }
 
 window.setInterval(load_info,1000)

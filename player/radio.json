@@ -1,9 +1,9 @@
 [
-    ["BBC Radio 1","http,//bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p"],
-    ["BBC Radio 2","http,//bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p"],
-    ["BBC Radio 3","http,//bbcmedia.ic.llnwd.net/stream/bbcmedia_radio3_mf_p"],
-    ["BBC Radio 4","http,//bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p"],
-    ["London's Big Conversation","http,//vis.media-ice.musicradio.com/LBC973MP3Low"],
-    ["Classic FM","http,//mediaweb.musicradio.com/Show.asx?StreamID=2"],
-    ["Heat","http,//radioplayer.heatradio.com"]
+    ["BBC Radio 1","http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p"],
+    ["BBC Radio 2","http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p"],
+    ["BBC Radio 3","http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio3_mf_p"],
+    ["BBC Radio 4","http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p"],
+    ["London's Big Conversation","http://vis.media-ice.musicradio.com/LBC973MP3Low"],
+    ["Classic FM","http://mediaweb.musicradio.com/Show.asx?StreamID=2"],
+    ["Heat","http://radioplayer.heatradio.com"]
 ]

@@ -99,14 +99,20 @@ class RadioPlayer(GenericVLCPlayer):
         import library
         self.library = library.RadioLibrary()
         self.info = {"play":"radio","playing":0,"more":None}
+        self.change_channel(tools.radio_channel())
 
     def tick_over(self):
         rc = tools.radio_channel()
         if rc != self.info["playing"]:
-            self.info["playing"] = rc
-            self.info["more"] = self.library.get_item(rc)
-            self.set_media = self.library.get_url(rc)
+            self.change_channel(rc)
         if int(time())!=self.time:
             self.info["pos"] = self.get_pos()
             tools.save_info(self.info)
             self.time = int(time())
+
+    def change_channel(self, rc):
+        self.info["playing"] = rc
+        self.info["more"] = self.library.get_item(rc)
+        self.set_media(self.library.get_url(rc))
+        self.play()
+

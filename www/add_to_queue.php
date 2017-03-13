@@ -11,7 +11,10 @@ if(isset($_GET['song'])){
 }
 // list
 if(isset($_GET['list'])){
-    /* NOT IMPLEMENTED */
+    $lsp = explode(",",$_GET['list']);
+    foreach($lsp as $s){
+        $queue[] = $s/1;
+    }
 }
 
 $fp = fopen("../player/queue.json","w");

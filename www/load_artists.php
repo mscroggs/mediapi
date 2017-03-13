@@ -11,7 +11,7 @@ if(isset($_GET['i'])){
         echo("<td>".$a[0]."</td>");
         echo("<td><a href='javascript:queue_up_song(".$i.")'>".$a[1]."</a></td>");
         echo("<td>".$a[2]."</td>");
-        echo("<td><a href='javascript:queue_up_album(".$i.")'>".$a[3]."</a></td>");
+        echo("<td><a href='javascript:queue_up_album(\"".$a[6]."\")'>".$a[3]."</a></td>");
         echo("</tr>");
         $n+=1;
     }

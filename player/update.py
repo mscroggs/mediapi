@@ -54,6 +54,16 @@ for root, dirs, files in os.walk(tools.music_dir):
 all_music.sort(key=sort_key)
 artists.sort()
 
+albums = {}
+for i,s in enumerate(all_music):
+    if s[3] not in albums:
+        albums[s[3]] = []
+    albums[s[3]].append(i)
+
+for i,s in enumerate(all_music):
+    all_music[i].append(",".join([str(j) for j in albums[s[3]]]))
+
+
 for i,s in enumerate(all_music):
     with open(tools.db_json("full",i),"w") as f:
         json.dump(s,f)
