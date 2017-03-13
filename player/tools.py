@@ -82,3 +82,11 @@ def save_info(info):
         info["pause"] = pause()
     with open(_os.path.join(player_dir,"info.json"),"w") as f:
         return _json.dump(info,f)
+
+def write_exception(e):
+    from datetime import datetime
+    n = datetime.now()
+    with open(_os.path.join(player_dir,"log"),"w") as f:
+        f.write(n.strftime("%Y-%m-%d %H:%M") + "\n"
+              + str(e.__class__) + "\n"
+              + e.message)
