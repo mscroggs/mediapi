@@ -20,6 +20,28 @@ function send_changes(ch){
     changer.send();
     loading++;
 }
+function send_changes_reload(ch){
+    var changer;
+    if(window.XMLHttpRequest){changer=new XMLHttpRequest();}
+    else {changer=new ActiveXObject('Microsoft.XMLHTTP');}
+    changer.onreadystatechange=function(){
+        if (changer.readyState==4 && changer.status==200){
+            loading--;
+            setTimeout(show_options,1500);
+        }
+    }
+    changer.open('GET','ajax.php?'+ch,true);
+    changer.send();
+    loading++;
+}
+
+function update_playlist(){
+    setf = document.getElementById("set-filter").value
+    setp = document.getElementById("set-prob").value
+    send_changes("filter="+setf)
+    send_changes_reload("prob="+setp)
+    return false;
+}
 
 function load_info(){
     var loader;
@@ -130,6 +152,51 @@ function start_music_browser(){
     loader.send();
     loading++;
 }
+function show_playlists(){
+    browser_showing="music"
+    var loader;
+    if(window.XMLHttpRequest){loader=new XMLHttpRequest();}
+    else {loader=new ActiveXObject('Microsoft.XMLHTTP');}
+    loader.onreadystatechange=function(){
+        if (loader.readyState==4 && loader.status==200){
+            loading--;
+            document.getElementById("browser").innerHTML=loader.responseText
+        }
+    }
+    loader.open('GET','load_artists.php?view=playlists',true);
+    loader.send();
+    loading++;
+}
+function show_playlist(p){
+    browser_showing="music"
+    var loader;
+    if(window.XMLHttpRequest){loader=new XMLHttpRequest();}
+    else {loader=new ActiveXObject('Microsoft.XMLHTTP');}
+    loader.onreadystatechange=function(){
+        if (loader.readyState==4 && loader.status==200){
+            loading--;
+            document.getElementById("browser").innerHTML=loader.responseText
+        }
+    }
+    loader.open('GET','load_artists.php?p='+p,true);
+    loader.send();
+    loading++;
+}
+function show_options(){
+    browser_showing="music"
+    var loader;
+    if(window.XMLHttpRequest){loader=new XMLHttpRequest();}
+    else {loader=new ActiveXObject('Microsoft.XMLHTTP');}
+    loader.onreadystatechange=function(){
+        if (loader.readyState==4 && loader.status==200){
+            loading--;
+            document.getElementById("browser").innerHTML=loader.responseText
+        }
+    }
+    loader.open('GET','load_artists.php?view=options',true);
+    loader.send();
+    loading++;
+}
 function show_artist(i){
     browser_showing="music"
     var loader;
@@ -192,10 +259,11 @@ window.setInterval(load_info,1000)
 </script>
 </head>
 <body>
+<div id='white'></div>
 <div id='time-background'></div>
 <div id='playing-info'></div>
-<div id='onoff'></div>
 <div class='cent'>
+<div id='onoff'></div>
 <span id='pause'></span><span id='skip'><a href="javascript:send_changes('skip=ON')"><img src='skip.png'></a></span>
 </div>
 <div id='browser'></div>

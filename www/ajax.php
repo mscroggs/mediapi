@@ -17,6 +17,14 @@ if(isset($_GET['pause'])){
         $options["pause"] = false;
     }
 }
+// shuffle
+if(isset($_GET['shuffle'])){
+    if($_GET['shuffle']=='ON'){
+        $options["shuffle"] = true;
+    } else {
+        $options["shuffle"] = false;
+    }
+}
 // skip
 if(isset($_GET['skip'])){
     if($_GET['skip']=='ON'){

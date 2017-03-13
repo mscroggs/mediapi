@@ -3,7 +3,8 @@ import tools
 from time import sleep
 tools.save_info({"play":"off"})
 
-try:
+#try:
+if True:
     while True:
         if tools.play_music():
             player = MusicPlayer()
@@ -36,5 +37,5 @@ try:
 
         if tools.off():
             sleep(5)
-except BaseException as e:
-    tools.write_exception(e)
+#except BaseException as e:
+#    tools.write_exception(e)

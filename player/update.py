@@ -80,7 +80,7 @@ with open(os.path.join(tools.player_dir,"filters.json")) as f:
 
 for i,filt in enumerate(filters):
     with open(tools.db_json("filters",i),"w") as f:
-        json.dump([i for i,s in enumerate(all_music) if re_match(filt[1],s)],
+        json.dump({i:s for i,s in enumerate(all_music) if re_match(filt[1],s)},
                   f)
 
 with open(tools.db_json("info"),"w") as f:

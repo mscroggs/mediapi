@@ -78,9 +78,9 @@ class MusicPlayer(GenericVLCPlayer):
             tools.remove_first_from_queue()
             return q[0]
         if tools.shuffle():
-            fl = self.library.get_filtered_list()
-            if random.random() > tools.probability() and len(fl)>0:
-                return random.choice(self.library.get_filtered_list())
+            fl = self.library.get_filtered_list().keys()
+            if random.random() > 0*tools.probability() and len(fl)>0:
+                return random.choice(fl)
             else:
                 return random.randrange(self.library.length)
         return (self.info["current"] + 1) % self.library.length

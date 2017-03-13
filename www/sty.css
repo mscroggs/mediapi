@@ -14,10 +14,15 @@ body	{background-color:transparent;color:#000000; margin:0px;}
 
 a        {text-decoration:none}
 
-#time-background {z-index:-5;height:100px;position:absolute;top:0;left:0;background-color:#CCCCFF}
-#playing-info {height:95px;border-bottom:2px solid black;position:abolute;top:0;right:0;left:0;padding-right:5px;padding-top:5px;padding-left:5px;overflow:hidden}
+#time-background {z-index:4;height:100px;position:fixed;top:0;left:0;background-color:#CCCCFF}
+#playing-info {height:95px;border-bottom:2px solid black;position:fixed;z-index:6;top:0;right:0;left:0;padding-right:5px;padding-top:5px;padding-left:5px;overflow:hidden}
 
 #onoff, .cent {text-align:center;margin-top:10px}
-
+.cent {left:0;right:0;top:100px;background-color:white;padding-top:5px}
 #skip, #pause {margin-right:40px;margin-left:40px}
+body{margin-top:100px}
 
+#white {background-color:#FFFFFF;position:fixed;height:100px;top:0;left:0;right:0;z-index:2}
+
+.tab {border:2px solid black;padding:3px;display:inline-block;margin:3px}
+.tab.active {background-color:#CCCCFF}

@@ -80,6 +80,9 @@ def remove_first_from_queue():
 def save_info(info):
     if info["play"] != "off":
         info["pause"] = pause()
+        info["shuffle"] = shuffle()
+        info["filter"] = filt()
+        info["prob"] = probability()
     with open(_os.path.join(player_dir,"info.json"),"w") as f:
         return _json.dump(info,f)
 
@@ -89,4 +92,5 @@ def write_exception(e):
     with open(_os.path.join(player_dir,"log"),"w") as f:
         f.write(n.strftime("%Y-%m-%d %H:%M") + "\n"
               + str(e.__class__) + "\n"
-              + e.message)
+              + str(e) + "\n"
+              + str(e.message))
