@@ -14,6 +14,7 @@ with open(os.path.join(tools.player_dir,"options.json")) as f:
      json.dump(opts,f)
 
 p = MusicPlayer()
+p.set_volume(120)
 p.set_media(song)
 while not p.has_ended():
     continue
