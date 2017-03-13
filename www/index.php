@@ -197,6 +197,21 @@ function show_options(){
     loader.send();
     loading++;
 }
+function show_queue(){
+    browser_showing="music"
+    var loader;
+    if(window.XMLHttpRequest){loader=new XMLHttpRequest();}
+    else {loader=new ActiveXObject('Microsoft.XMLHTTP');}
+    loader.onreadystatechange=function(){
+        if (loader.readyState==4 && loader.status==200){
+            loading--;
+            document.getElementById("browser").innerHTML=loader.responseText
+        }
+    }
+    loader.open('GET','load_artists.php?view=queue',true);
+    loader.send();
+    loading++;
+}
 function show_artist(i){
     browser_showing="music"
     var loader;

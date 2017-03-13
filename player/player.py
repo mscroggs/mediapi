@@ -79,7 +79,7 @@ class MusicPlayer(GenericVLCPlayer):
             return q[0]
         if tools.shuffle():
             fl = self.library.get_filtered_list().keys()
-            if random.random() > 0*tools.probability() and len(fl)>0:
+            if random.random() > tools.probability() and len(fl)>0:
                 return random.choice(fl)
             else:
                 return random.randrange(self.library.length)

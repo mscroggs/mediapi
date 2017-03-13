@@ -4,6 +4,14 @@ $mode="artist";
 if(isset($_GET['view']) && $_GET['view']=="playlists"){$mode="playlists";}
 if(isset($_GET['p'])){$mode="playlists";}
 if(isset($_GET['view']) && $_GET['view']=="options"){$mode="options";}
+if(isset($_GET['view']) && $_GET['view']=="queue"){$mode="queue";}
+
+if($mode!="queue"){echo("<div class='tab'><a href='javascript:show_queue()'>");}
+else{echo("<div class='tab active'>");}
+echo("Queue");
+if($mode!="queue"){echo("</a>");}
+echo("</div>");
+
 
 if($mode!="artist"){echo("<div class='tab'><a href='javascript:start_music_browser()'>");}
 else{echo("<div class='tab active'>");}
@@ -28,6 +36,8 @@ echo("</div>");
 <table>
 
 <?php
+
+// Make these appear in order.
 
 if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
     if(isset($_GET['p'])){
