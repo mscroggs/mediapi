@@ -11,7 +11,7 @@ def sort_key(a):
     return a[2]+" "+a[3]+" "+str(a[0]).zfill(4)
 
 def wanted(f):
-    if f[-4:]!=".mp3":
+    if f[-4:].lower()!=".mp3":
         return False
     return True
 
