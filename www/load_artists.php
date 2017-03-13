@@ -37,13 +37,13 @@ echo("</div>");
 
 <?php
 
-// Make these appear in order.
-
 if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
     if(isset($_GET['p'])){
         $string = file_get_contents("../player/db/filters/".$_GET['p'].".json");
         $artists = json_decode($string, true);
-        $n=0;
+        echo("<tr class='tr0'><td colspan=4><a href='javascript:show_playlists()'>[back to filters]</a></td></tr>");
+        $n=1;
+        ksort($artists);
         foreach($artists as $i=>$a){
             echo("<tr class='tr".($n%2)."'>");
             echo("<td>".$a[0]."</td>");
@@ -83,11 +83,32 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
     echo("<input id='set-prob' size=3 value='".$info["prob"]."'>");
     echo("<input type='submit' value='Update'>");
     echo("</td></tr>");
+} else if(isset($_GET['view']) && $_GET['view']=="queue"){
+    $string = file_get_contents("../player/queue.json");
+    $queue = json_decode($string, true);
+    if(count($queue)==0){
+        echo("<tr class='tr0'><td>Queue empty</td></tr>");
+    } else {
+        echo("<tr class='tr0'><td colspan=4><a href='javascript:clear_queue()'>[clear queue]</a></td></tr>");
+        $n=1;
+        foreach($queue as $q){
+            $a = json_decode(file_get_contents("../player/db/full/".$q.".json"));
+            echo("<tr class='tr".($n%2)."'>");
+            echo("<td>".$a[0]."</td>");
+            echo("<td>".$a[1]."</td>");
+            echo("<td>".$a[2]."</td>");
+            echo("<td>".$a[3]."</td>");
+            echo("</tr>");
+            $n++;
+        }
+    }
 } else {
     if(isset($_GET['i'])){
         $string = file_get_contents("../player/db/by_artist/".$_GET['i'].".json");
         $artists = json_decode($string, true);
-        $n=0;
+        echo("<tr class='tr0'><td colspan=4><a href='javascript:start_music_browser()'>[back to artists]</a></td></tr>");
+        $n=1;
+        ksort($artists);
         foreach($artists as $i=>$a){
             echo("<tr class='tr".($n%2)."'>");
             echo("<td>".$a[0]."</td>");

@@ -21,6 +21,4 @@ $fp = fopen("../player/queue.json","w");
 fwrite($fp, json_encode($queue));
 fclose($fp);
 
-print_r($queue);
-
 ?>

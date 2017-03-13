@@ -34,7 +34,7 @@ all_music = []
 artists = []
 
 for root, dirs, files in os.walk(tools.music_dir):
-    print root
+    print(root)
     for file in [f for f in files if wanted(f)]:
         full_file = os.path.join(root, file)
         tags = ID3(full_file)
@@ -54,12 +54,14 @@ for root, dirs, files in os.walk(tools.music_dir):
 all_music.sort(key=sort_key)
 artists.sort()
 
+print("Making albums")
 albums = {}
 for i,s in enumerate(all_music):
     if s[3] not in albums:
         albums[s[3]] = []
     albums[s[3]].append(i)
 
+print("Writing songs to file")
 for i,s in enumerate(all_music):
     all_music[i].append(",".join([str(j) for j in albums[s[3]]]))
 
@@ -71,10 +73,12 @@ for i,s in enumerate(all_music):
 with open(tools.db_json("artists"),"w") as f:
     json.dump(artists,f)
 
+print("Making artist list")
 for i,a in enumerate(artists):
     with open(tools.db_json("by_artist",i),"w") as f:
         json.dump({i:s for i,s in enumerate(all_music) if s[2]==a},f)
 
+print("Filtering")
 with open(os.path.join(tools.player_dir,"filters.json")) as f:
     filters = json.load(f)
 
@@ -83,5 +87,8 @@ for i,filt in enumerate(filters):
         json.dump({i:s for i,s in enumerate(all_music) if re_match(filt[1],s)},
                   f)
 
+print("Saving info")
 with open(tools.db_json("info"),"w") as f:
     json.dump({"length":len(all_music),"artists":len(artists)},f)
+
+print("Done")

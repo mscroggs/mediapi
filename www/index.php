@@ -20,6 +20,20 @@ function send_changes(ch){
     changer.send();
     loading++;
 }
+function clear_queue(){
+    var changer;
+    if(window.XMLHttpRequest){changer=new XMLHttpRequest();}
+    else {changer=new ActiveXObject('Microsoft.XMLHTTP');}
+    changer.onreadystatechange=function(){
+        if (changer.readyState==4 && changer.status==200){
+            loading--;
+            setTimeout(show_queue,1500);
+        }
+    }
+    changer.open('GET','clear_queue.php',true);
+    changer.send();
+    loading++;
+}
 function send_changes_reload(ch){
     var changer;
     if(window.XMLHttpRequest){changer=new XMLHttpRequest();}
