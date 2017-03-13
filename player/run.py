@@ -1,7 +1,7 @@
 from player import MusicPlayer, RadioPlayer
 import tools
 from time import sleep
-tools.save_info({"play":"off"})
+tools.save_blank_info()
 
 #try:
 if True:
@@ -20,7 +20,7 @@ if True:
                     player.skip()
                 player.tick_over()
             player.stop()
-            tools.save_info({"play":"off"})
+            tools.save_blank_info()
 
         if tools.play_radio():
             player = RadioPlayer()
@@ -33,7 +33,7 @@ if True:
                     player.unpause()
                 player.tick_over()
             player.stop()
-            tools.save_info({"play":"off"})
+            tools.save_blank_info()
 
         if tools.off():
             sleep(5)

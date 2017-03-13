@@ -41,6 +41,10 @@ if(isset($_GET['filter'])){
 if(isset($_GET['prob'])){
     $options["prob"] = $_GET['prob']/1;
 }
+// volume
+if(isset($_GET['volume'])){
+    $options["volume"] = $_GET['volume']/1;
+}
 // radioc
 if(isset($_GET['radioc'])){
     $options["radioc"] = $_GET['radioc']/1;

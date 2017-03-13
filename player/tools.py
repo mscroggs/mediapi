@@ -10,6 +10,9 @@ music_dir = _os.path.join(current_dir,"../Music")
 db_dir = _os.path.join(current_dir,"db")
 player_dir = current_dir
 
+def save_blank_info():
+    save_info({"play":"off","volume":0})
+
 def db_json(_name,_name2=None):
     if _name2 is None:
         return _os.path.join(db_dir,str(_name)+".json")
@@ -41,6 +44,9 @@ def shuffle():
 
 def pause():
     return _o("pause")
+
+def volume():
+    return _o("volume")
 
 def probability():
     return _o("prob")

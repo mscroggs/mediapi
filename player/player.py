@@ -33,6 +33,12 @@ class GenericVLCPlayer(object):
     def pause(self):
         self.vlc_p.pause()
 
+    def set_volume(self, n):
+        self.vlc_p.audio_set_volume(n)
+
+    def get_volume(self):
+        return self.vlc_p.audio_get_volume()
+
     def stop(self):
         self.vlc_p.stop()
 
@@ -46,7 +52,8 @@ class MusicPlayer(GenericVLCPlayer):
         super(MusicPlayer, self).__init__()
         import library
         self.library = library.MusicLibrary()
-        self.info = {"play":"music","current":-1,"pos":0,"more":None}
+        self.info = {"play":"music","current":-1,"pos":0,"more":None,
+                     "volume":self.get_volume()}
         self.play_next()
 
     def get_pos(self):
@@ -58,6 +65,9 @@ class MusicPlayer(GenericVLCPlayer):
     def tick_over(self):
         if self.has_ended():
             self.play_next()
+        if self.get_volume() != tools.volume():
+            self.set_volume(tools.volume())
+            self.info["volume"] = self.get_volume()
         if int(time())!=self.time:
             self.info["pos"] = self.get_pos()
             tools.save_info(self.info)
@@ -98,13 +108,17 @@ class RadioPlayer(GenericVLCPlayer):
         super(RadioPlayer, self).__init__()
         import library
         self.library = library.RadioLibrary()
-        self.info = {"play":"radio","playing":0,"more":None}
+        self.info = {"play":"radio","playing":0,"more":None,
+                     "volume":self.get_volume()}
         self.change_channel(tools.radio_channel())
 
     def tick_over(self):
         rc = tools.radio_channel()
         if rc != self.info["playing"]:
             self.change_channel(rc)
+        if self.get_volume() != tools.volume():
+            self.set_volume(tools.volume())
+            self.info["volume"] = self.get_volume()
         if int(time())!=self.time:
             self.info["pos"] = self.get_pos()
             tools.save_info(self.info)

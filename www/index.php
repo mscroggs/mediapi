@@ -3,6 +3,7 @@
 <title>MediaPi</title>
 <link rel='stylesheet' type='text/css' href='sty.css'>
 <script type='text/javascript'>
+first=true;
 loading = 0;
 browser_showing="off"
 gap = " &nbsp; &nbsp; "
@@ -111,6 +112,10 @@ function load_info(){
                         pause="<a class='pause' href=\"javascript:send_changes('pause=OFF')\"><img src='paused.png'></a>";
                     } else {
                         pause="<a class='pause' href=\"javascript:send_changes('pause=ON')\"><img src='playing.png'></a>";
+                    }
+                    if(first){
+                        first = false
+                        document.getElementById("thevolume").value = info["volume"]
                     }
                 }
                 document.getElementById("pause").innerHTML=pause;
@@ -294,11 +299,8 @@ window.setInterval(load_info,1000)
 <div class='cent'>
 <div id='onoff'></div>
 <span id='pause'></span><span id='skip'><a href="javascript:send_changes('skip=ON')"><img src='skip.png'></a></span>
+<br /><input type='range' id='thevolume' min='0' max='100' onchange='send_changes("volume="+this.value)'>
 </div>
 <div id='browser'></div>
 </body>
 </html>
-
-<?php
-
-?>
