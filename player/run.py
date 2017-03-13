@@ -14,6 +14,7 @@ if True:
                     player.pause()
                     while tools.pause() and tools.play_music():
                         player.tick_over()
+                        sleep(5)
                     player.unpause()
                 # SKIP
                 if tools.skip():
@@ -30,6 +31,7 @@ if True:
                     player.pause()
                     while tools.pause() and tools.play_music():
                         player.tick_over()
+                        sleep(5)
                     player.unpause()
                 player.tick_over()
             player.stop()
