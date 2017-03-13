@@ -299,7 +299,7 @@ window.setInterval(load_info,1000)
 <div class='cent'>
 <div id='onoff'></div>
 <span id='pause'></span><span id='skip'><a href="javascript:send_changes('skip=ON')"><img src='skip.png'></a></span>
-<br /><img src='volume.png' height=26><input type='range' id='thevolume' min='0' max='100' onchange='send_changes("volume="+this.value)'>
+<br /><img src='volume.png' height=26><input type='range' id='thevolume' min='0' max='125' onchange='send_changes("volume="+this.value)'>
 </div>
 <div id='browser'></div>
 </body>
