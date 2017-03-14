@@ -17,6 +17,6 @@ pip install -r requirements.txt
 
 Music
 -----
-The music the the `Music` folder is licensed under a [CC BY-NC-ND](https://creativecommons.org/licenses/by-nc-nd/2.0/uk/)
+The music the the `Music` folder is licensed under a [CC BY-NC-ND 2.0](https://creativecommons.org/licenses/by-nc-nd/2.0/uk/)
 license. It can be downloaded from [purplestereo.co.uk/cat/album.php?cat=PSC020](http://www.purplestereo.co.uk/cat/album.php?cat=PSC020).
 Also, it was made by me!
