@@ -22,7 +22,7 @@ if($mode!="queue"){echo("</a>");}
 echo("</div>");
 
 
-if($mode!="artist"){echo("<div class='tab'><a href='javascript:start_music_browser()'>");}
+if($mode!="artist"){echo("<div class='tab'><a href='javascript:start_music_browser(-1)'>");}
 else{echo("<div class='tab active'>");}
 echo("Artists");
 if($mode!="artist"){echo("</a>");}
@@ -134,7 +134,7 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
         echo("<tr class='tr0'><td colspan=");
         if($edit){echo(5);}
         else{echo(4);}
-        echo("><a href='javascript:start_music_browser()'>[back to artists]</a></td></tr>");
+        echo("><a href='javascript:start_music_browser("+$_GET['i']+")'>[back to artists]</a></td></tr>");
         $n=1;
         ksort($artists);
         foreach($artists as $i=>$a){
@@ -158,7 +158,7 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
         $string = file_get_contents("../player/db/artists.json");
         $artists = json_decode($string, true);
         foreach($artists as $i=>$a){
-            echo("<tr class='tr".($i%2)."'><td><a href='javascript:show_artist(".$i.")'>".$a."</a></td></tr>");
+            echo("<tr class='tr".($i%2)."'><td><a name='artist".$a."' href='javascript:show_artist(".$i.")'>".$a."</a></td></tr>");
         }
     }
 }

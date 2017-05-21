@@ -211,7 +211,7 @@ function load_info(){
                     document.getElementById("skip").style.display="none";
                 }
                 if(info["play"]=="music" && browser_showing!="music"){
-                    start_music_browser()
+                    start_music_browser(-1)
                 }
                 if(info["play"]=="radio" && browser_showing!="radio"){
                     start_radio_browser()
@@ -242,7 +242,7 @@ function start_off_browser(){
     browser_showing="off"
 }
 
-function start_music_browser(){
+function start_music_browser(n){
     browser_showing="music"
     var loader;
     if(window.XMLHttpRequest){loader=new XMLHttpRequest();}
@@ -251,6 +251,7 @@ function start_music_browser(){
         if (loader.readyState==4 && loader.status==200){
             loading--;
             document.getElementById("browser").innerHTML=loader.responseText
+            location.hash = "#artist" + n
         }
     }
     loader.open('GET','load_artists.php'+editQ,true);
