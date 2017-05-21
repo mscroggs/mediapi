@@ -251,7 +251,7 @@ function start_music_browser(n){
         if (loader.readyState==4 && loader.status==200){
             loading--;
             document.getElementById("browser").innerHTML=loader.responseText
-            location.hash = "#artist" + n
+            if(n>=0){location.hash = "#artist" + n}
         }
     }
     loader.open('GET','load_artists.php'+editQ,true);

@@ -134,7 +134,7 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
         echo("<tr class='tr0'><td colspan=");
         if($edit){echo(5);}
         else{echo(4);}
-        echo("><a href='javascript:start_music_browser("+$_GET['i']+")'>[back to artists]</a></td></tr>");
+        echo("><a href='javascript:start_music_browser(".$_GET['i'].")'>[back to artists]</a></td></tr>");
         $n=1;
         ksort($artists);
         foreach($artists as $i=>$a){
