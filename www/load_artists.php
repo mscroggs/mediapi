@@ -158,7 +158,7 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
         $string = file_get_contents("../player/db/artists.json");
         $artists = json_decode($string, true);
         foreach($artists as $i=>$a){
-            echo("<tr class='tr".($i%2)."'><td><a name='artist".$a."' href='javascript:show_artist(".$i.")'>".$a."</a></td></tr>");
+            echo("<tr class='tr".($i%2)."'><td><a name='artist".$i."' href='javascript:show_artist(".$i.")'>".$a."</a></td></tr>");
         }
     }
 }
