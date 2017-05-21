@@ -26,3 +26,6 @@ body{margin-top:100px}
 
 .tab {border:2px solid black;padding:3px;display:inline-block;margin:3px}
 .tab.active {background-color:#CCCCFF}
+
+#notification {height:50px;border:2px solid black;border-radius:9px;display:none;position:fixed;top:20px;left:20px;right:20px;
+               background-color:white;z-index:10;font-size:18px;padding:8px}

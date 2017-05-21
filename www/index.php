@@ -8,6 +8,88 @@ loading = 0;
 browser_showing="off"
 gap = " &nbsp; &nbsp; "
 
+timer = ""
+notificationFader = ""
+editAmp = ""
+editQ = ""
+
+showOptionsChange = false
+showQueueClear = false
+
+function stop_edit_playlist(n) {
+    editAmp = ""
+    editQ = ""
+    show_playlist(n)
+}
+function edit_playlist(n) {
+    editAmp = "&edit="+n
+    editQ = "?edit="+n
+    show_playlist(n)
+}
+
+function add_to_playlist(n){
+    var changer;
+    if(window.XMLHttpRequest){changer=new XMLHttpRequest();}
+    else {changer=new ActiveXObject('Microsoft.XMLHTTP');}
+    changer.onreadystatechange=function(){
+        if (changer.readyState==4 && changer.status==200){
+            loading--;
+            notify("Added "+changer.responseText+" to playlist")
+            document.getElementById("song"+n+"edit").innerHTML="<a href='javascript:remove_from_playlist("+n+")' style='color:red'>&times;</a>";
+        }
+    }
+    changer.open('GET','add_to_playlist.php?n='+n+editAmp,true);
+    changer.send();
+    showOptionsChange = false
+    showQueueClear = false
+    loading++;
+}
+function remove_from_playlist(n){
+    var changer;
+    if(window.XMLHttpRequest){changer=new XMLHttpRequest();}
+    else {changer=new ActiveXObject('Microsoft.XMLHTTP');}
+    changer.onreadystatechange=function(){
+        if (changer.readyState==4 && changer.status==200){
+            loading--;
+            notify("Removed "+changer.responseText+" from playlist")
+            document.getElementById("song"+n+"edit").innerHTML="<a href='javascript:add_to_playlist("+n+")' style='color:green'>+</a>";
+        }
+    }
+    changer.open('GET','remove_from_playlist.php?n='+n+editAmp,true);
+    changer.send();
+    showOptionsChange = false
+    showQueueClear = false
+    loading++;
+}
+
+function fade_out(element) {
+    var op = 1;
+    timer = setInterval(function () {
+        if (op <= 0.05){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 50);
+}
+function fade_in(element) {
+    element.style.display = 'block';
+    element.style.opacity = 1;
+}
+
+
+function notify(txt){
+    document.getElementById("notification").innerHTML=txt
+    if(notificationFader!=""){clearTimeout(notificationFader)}
+    if(timer!=""){clearInterval(timer)}
+    fade_in(document.getElementById("notification"))
+    notificationFader = setTimeout(hide_notification,1500);
+}
+function hide_notification(txt){
+    fade_out(document.getElementById("notification"))
+}
 function send_changes(ch){
     var changer;
     if(window.XMLHttpRequest){changer=new XMLHttpRequest();}
@@ -17,7 +99,7 @@ function send_changes(ch){
             loading--;
         }
     }
-    changer.open('GET','ajax.php?'+ch,true);
+    changer.open('GET','ajax.php?'+ch+editAmp,true);
     changer.send();
     loading++;
 }
@@ -28,11 +110,14 @@ function clear_queue(){
     changer.onreadystatechange=function(){
         if (changer.readyState==4 && changer.status==200){
             loading--;
-            setTimeout(show_queue,1500);
+            notify("Queue cleared")
+            setTimeout(ifshow_queue,1500);
         }
     }
-    changer.open('GET','clear_queue.php',true);
+    changer.open('GET','clear_queue.php'+editQ,true);
     changer.send();
+    showOptionsChange = false
+    showQueueClear = true
     loading++;
 }
 function send_changes_reload(ch){
@@ -42,11 +127,12 @@ function send_changes_reload(ch){
     changer.onreadystatechange=function(){
         if (changer.readyState==4 && changer.status==200){
             loading--;
-            setTimeout(show_options,1500);
+            setTimeout(ifshow_options,1500);
         }
     }
-    changer.open('GET','ajax.php?'+ch,true);
+    changer.open('GET','ajax.php?'+ch+editAmp,true);
     changer.send();
+    showOptionsChange = true
     loading++;
 }
 
@@ -135,7 +221,7 @@ function load_info(){
                 }
             }
         }
-        loader.open('GET','load_info.php',true);
+        loader.open('GET','load_info.php'+editQ,true);
         loader.send();
         loading++;
     }
@@ -167,8 +253,10 @@ function start_music_browser(){
             document.getElementById("browser").innerHTML=loader.responseText
         }
     }
-    loader.open('GET','load_artists.php',true);
+    loader.open('GET','load_artists.php'+editQ,true);
     loader.send();
+    showOptionsChange = false
+    showQueueClear = false
     loading++;
 }
 function show_playlists(){
@@ -182,8 +270,10 @@ function show_playlists(){
             document.getElementById("browser").innerHTML=loader.responseText
         }
     }
-    loader.open('GET','load_artists.php?view=playlists',true);
+    loader.open('GET','load_artists.php?view=playlists'+editAmp,true);
     loader.send();
+    showOptionsChange = false
+    showQueueClear = false
     loading++;
 }
 function show_playlist(p){
@@ -197,9 +287,14 @@ function show_playlist(p){
             document.getElementById("browser").innerHTML=loader.responseText
         }
     }
-    loader.open('GET','load_artists.php?p='+p,true);
+    loader.open('GET','load_artists.php?p='+p+editAmp,true);
     loader.send();
+    showQueueClear = false
+    showOptionsChange = false
     loading++;
+}
+function ifshow_options(){
+    if(showOptionsChange){show_options()}
 }
 function show_options(){
     browser_showing="music"
@@ -212,9 +307,14 @@ function show_options(){
             document.getElementById("browser").innerHTML=loader.responseText
         }
     }
-    loader.open('GET','load_artists.php?view=options',true);
+    loader.open('GET','load_artists.php?view=options'+editAmp,true);
     loader.send();
+    showOptionsChange = false
+    showQueueClear = false
     loading++;
+}
+function ifshow_queue(){
+    if(showQueueClear){show_queue();}
 }
 function show_queue(){
     browser_showing="music"
@@ -227,7 +327,7 @@ function show_queue(){
             document.getElementById("browser").innerHTML=loader.responseText
         }
     }
-    loader.open('GET','load_artists.php?view=queue',true);
+    loader.open('GET','load_artists.php?view=queue'+editAmp,true);
     loader.send();
     loading++;
 }
@@ -242,8 +342,10 @@ function show_artist(i){
             document.getElementById("browser").innerHTML=loader.responseText
         }
     }
-    loader.open('GET','load_artists.php?i='+i,true);
+    loader.open('GET','load_artists.php?i='+i+editAmp,true);
     loader.send();
+    showOptionsChange = false
+    showQueueClear = false
     loading++;
 }
 
@@ -258,8 +360,10 @@ function start_radio_browser(){
             document.getElementById("browser").innerHTML=loader.responseText
         }
     }
-    loader.open('GET','load_radio.php',true);
+    loader.open('GET','load_radio.php'+editQ,true);
     loader.send();
+    showOptionsChange = false
+    showQueueClear = false
     loading++;
 }
 function queue_up_song(i){
@@ -268,11 +372,14 @@ function queue_up_song(i){
     else {queuer=new ActiveXObject('Microsoft.XMLHTTP');}
     queuer.onreadystatechange=function(){
         if (queuer.readyState==4 && queuer.status==200){
+            notify("Added "+queuer.responseText+" to playlist")
             loading--;
         }
     }
-    queuer.open('GET','add_to_queue.php?song='+i,true);
+    queuer.open('GET','add_to_queue.php?song='+i+editAmp,true);
     queuer.send();
+    showOptionsChange = false
+    showQueueClear = false
     loading++;
 }
 function queue_up_album(i){
@@ -284,8 +391,10 @@ function queue_up_album(i){
             loading--;
         }
     }
-    queuer.open('GET','add_to_queue.php?list='+i,true);
+    queuer.open('GET','add_to_queue.php?list='+i+editAmp,true);
     queuer.send();
+    showOptionsChange = false
+    showQueueClear = false
     loading++;
 }
 
@@ -294,6 +403,7 @@ window.setInterval(load_info,1000)
 </head>
 <body>
 <div id='white'></div>
+<div id='notification'></div>
 <div id='time-background'></div>
 <div id='playing-info'></div>
 <div class='cent'>

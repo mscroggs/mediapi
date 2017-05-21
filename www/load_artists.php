@@ -1,5 +1,14 @@
 <?php
 
+$playlist = Array();
+$edit=false;
+if(isset($_GET['edit'])){
+    $edit=true;
+    $playlist = json_decode(file_get_contents("../player/db/filters/".$_GET['edit'].".json"),true);
+}
+
+
+
 $mode="artist";
 if(isset($_GET['view']) && $_GET['view']=="playlists"){$mode="playlists";}
 if(isset($_GET['p'])){$mode="playlists";}
@@ -41,11 +50,27 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
     if(isset($_GET['p'])){
         $string = file_get_contents("../player/db/filters/".$_GET['p'].".json");
         $artists = json_decode($string, true);
-        echo("<tr class='tr0'><td colspan=4><a href='javascript:show_playlists()'>[back to filters]</a></td></tr>");
+        echo("<tr class='tr0'><td colspan=");
+        if($edit){echo(5);}
+        else{echo(4);}
+        echo("><a href='javascript:show_playlists()'>[back to playlists]</a>");
+        if(isset($_GET['edit']) && $_GET['edit']==$_GET['p']){
+            echo(" &nbsp; <a href='javascript:stop_edit_playlist(".$_GET['p'].")'>[stop editing this playlist]</a>");
+        } else {
+            echo(" &nbsp; <a href='javascript:edit_playlist(".$_GET['p'].")'>[edit this playlist]</a>");
+        }
+        echo("</td></tr>");
         $n=1;
         ksort($artists);
         foreach($artists as $i=>$a){
             echo("<tr class='tr".($n%2)."'>");
+            if($edit){
+                if(array_key_exists($i,$playlist)){
+                    echo("<td id='song".$i."edit'><a href='javascript:remove_from_playlist(".$i.")' style='color:red'>&times;</a></td>");
+                } else {
+                    echo("<td id='song".$i."edit'><a href='javascript:add_to_playlist(".$i.")' style='color:green'>+</a></td>");
+                }
+            }
             echo("<td>".$a[0]."</td>");
             echo("<td><a href='javascript:queue_up_song(".$i.")'>".$a[1]."</a></td>");
             echo("<td>".$a[2]."</td>");
@@ -106,11 +131,21 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
     if(isset($_GET['i'])){
         $string = file_get_contents("../player/db/by_artist/".$_GET['i'].".json");
         $artists = json_decode($string, true);
-        echo("<tr class='tr0'><td colspan=4><a href='javascript:start_music_browser()'>[back to artists]</a></td></tr>");
+        echo("<tr class='tr0'><td colspan=");
+        if($edit){echo(5);}
+        else{echo(4);}
+        echo("><a href='javascript:start_music_browser()'>[back to artists]</a></td></tr>");
         $n=1;
         ksort($artists);
         foreach($artists as $i=>$a){
             echo("<tr class='tr".($n%2)."'>");
+            if($edit){
+                if(array_key_exists($i,$playlist)){
+                    echo("<td id='song".$i."edit'><a href='javascript:remove_from_playlist(".$i.")' style='color:red'>&times;</a></td>");
+                } else {
+                    echo("<td id='song".$i."edit'><a href='javascript:add_to_playlist(".$i.")' style='color:green'>+</a></td>");
+                }
+            }
             echo("<td>".$a[0]."</td>");
             echo("<td><a href='javascript:queue_up_song(".$i.")'>".$a[1]."</a></td>");
             echo("<td>".$a[2]."</td>");
