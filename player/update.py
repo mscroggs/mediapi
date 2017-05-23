@@ -90,6 +90,7 @@ with open(os.path.join(tools.player_dir,"filters.json")) as f:
     filters = json.load(f)
 
 for i,filt in enumerate(filters):
+    print(filt)
     with open(tools.db_json("filters",i)) as f:
         ls = [a[4] for a in json.load(f).values()]
     with open(tools.db_json("filters",i),"w") as f:
