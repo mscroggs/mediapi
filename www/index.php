@@ -141,6 +141,7 @@ function update_playlist(){
     setp = document.getElementById("set-prob").value
     send_changes("filter="+setf)
     send_changes_reload("prob="+setp)
+    notify("Updated settings.")
     return false;
 }
 
@@ -389,6 +390,7 @@ function queue_up_album(i){
     else {queuer=new ActiveXObject('Microsoft.XMLHTTP');}
     queuer.onreadystatechange=function(){
         if (queuer.readyState==4 && queuer.status==200){
+            notify("Added "+queuer.responseText+" to playlist")
             loading--;
         }
     }

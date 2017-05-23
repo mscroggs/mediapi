@@ -30,6 +30,7 @@ def re_match(rex,s):
         return True
     return False
 
+
 all_music = []
 artists = []
 
@@ -83,9 +84,10 @@ with open(os.path.join(tools.player_dir,"filters.json")) as f:
     filters = json.load(f)
 
 for i,filt in enumerate(filters):
+    with open(tools.db_json("filters",i)) as f:
+        ls = [a[4] for a in json.load(f).values()]
     with open(tools.db_json("filters",i),"w") as f:
-        json.dump({i:s for i,s in enumerate(all_music) if re_match(filt[1],s)},
-                  f)
+        json.dump({i:s for i,s in enumerate(all_music) if s[4] in ls},f)
 
 print("Saving info")
 with open(tools.db_json("info"),"w") as f:
