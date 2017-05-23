@@ -85,6 +85,10 @@ for i,a in enumerate(artists):
     with open(tools.db_json("by_artist",i),"w") as f:
         json.dump({i:s for i,s in enumerate(all_music) if case(s[2])==case(a)},f)
 
+maap = {}
+for i,j in enumerate(all_music):
+    maap[j[4]] = (i,j)
+
 print("Filtering")
 with open(os.path.join(tools.player_dir,"filters.json")) as f:
     filters = json.load(f)
@@ -93,8 +97,11 @@ for i,filt in enumerate(filters):
     print(filt)
     with open(tools.db_json("filters",i)) as f:
         ls = [a[4] for a in json.load(f).values()]
+    out = {}
+    for l in ls:
+        out[maap[l][0]] = maap[l][1]
     with open(tools.db_json("filters",i),"w") as f:
-        json.dump({i:s for i,s in enumerate(all_music) if s[4] in ls},f)
+        json.dump(out,f)
 
 print("Saving info")
 with open(tools.db_json("info"),"w") as f:
