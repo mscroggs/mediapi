@@ -83,7 +83,7 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
         $string = file_get_contents("../player/filters.json");
         $filters = json_decode($string, true);
         foreach($filters as $i=>$a){
-            echo("<tr class='tr".($i%2)."'><td><a href='javascript:show_playlist(".$i.")'>".$a[0]."</a></td></tr>");
+            echo("<tr class='tr".($i%2)."'><td><a href='javascript:show_playlist(".$i.")'>".$a."</a></td></tr>");
         }
     }
 } else if((isset($_GET['view']) && $_GET['view']=="options")|| isset($_GET['p'])){
