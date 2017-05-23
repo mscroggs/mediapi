@@ -10,6 +10,12 @@ import json
 def sort_key(a):
     return a[2]+" "+a[3]+" "+str(a[0]).zfill(4)
 
+def case(a):
+    a = a.lower()
+    if a[:4] == "the ":
+        a = a[4:]
+    return a
+
 def wanted(f):
     if f[-4:].lower()!=".mp3":
         return False
@@ -53,7 +59,7 @@ for root, dirs, files in os.walk(tools.music_dir):
             artists.append(artist)
 
 all_music.sort(key=sort_key)
-artists.sort()
+artists.sort(key=case)
 
 print("Making albums")
 albums = {}
@@ -77,7 +83,7 @@ with open(tools.db_json("artists"),"w") as f:
 print("Making artist list")
 for i,a in enumerate(artists):
     with open(tools.db_json("by_artist",i),"w") as f:
-        json.dump({i:s for i,s in enumerate(all_music) if s[2]==a},f)
+        json.dump({i:s for i,s in enumerate(all_music) if case(s[2])==case(a)},f)
 
 print("Filtering")
 with open(os.path.join(tools.player_dir,"filters.json")) as f:
