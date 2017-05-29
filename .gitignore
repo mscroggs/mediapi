@@ -9,6 +9,7 @@ player/log
 player/queue.json
 player/info.json
 player/filters.json
+
 !.gitignore
 
 Music/*
