@@ -102,7 +102,7 @@ if((isset($_GET['view']) && $_GET['view']=="playlists")|| isset($_GET['p'])){
     foreach($filters as $i=>$f){
         echo("<option value='".$i."'");
         if($info["filter"]==$i){echo(" selected");}
-        echo(">".$f[0]."</option>");
+        echo(">".$f."</option>");
     }
     echo("</select> Probability: ");
     echo("<input id='set-prob' size=3 value='".$info["prob"]."'>");
