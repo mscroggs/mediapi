@@ -99,7 +99,10 @@ for i,filt in enumerate(filters):
         ls = [a[4] for a in json.load(f).values()]
     out = {}
     for l in ls:
-        out[maap[l][0]] = maap[l][1]
+        try:
+            out[maap[l][0]] = maap[l][1]
+        except KeyError:
+            pass
     with open(tools.db_json("filters",i),"w") as f:
         json.dump(out,f)
 
