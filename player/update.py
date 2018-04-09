@@ -68,7 +68,7 @@ all_music.sort(key=sort_key)
 both_artists.sort(key=0)
 
 artists = [i[0] for i in both_artists]
-uncapped = [i[0] for i in both_artists]
+uncapped = [i[1] for i in both_artists]
 
 print("Making albums")
 albums = {}
