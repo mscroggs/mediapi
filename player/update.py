@@ -55,8 +55,8 @@ for root, dirs, files in os.walk(tools.music_dir):
         track = [num, title, artist, album, full_file, length]
         all_music.append(track)
 
-        if artist not in artists:
-            artists.append(artist)
+        if case(artist) not in artists:
+            artists.append(case(artist))
 
 all_music.sort(key=sort_key)
 artists.sort(key=case)
@@ -83,7 +83,7 @@ with open(tools.db_json("artists"),"w") as f:
 print("Making artist list")
 for i,a in enumerate(artists):
     with open(tools.db_json("by_artist",i),"w") as f:
-        json.dump({i:s for i,s in enumerate(all_music) if case(s[2])==case(a)},f)
+        json.dump({i:s for i,s in enumerate(all_music) if case(s[2])==a},f)
 
 maap = {}
 for i,j in enumerate(all_music):
