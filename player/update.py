@@ -39,6 +39,7 @@ def re_match(rex,s):
 
 all_music = []
 artists = []
+uncapped = []
 
 for root, dirs, files in os.walk(tools.music_dir):
     print(root)
@@ -56,6 +57,7 @@ for root, dirs, files in os.walk(tools.music_dir):
         all_music.append(track)
 
         if case(artist) not in artists:
+            uncapped.append(artist)
             artists.append(case(artist))
 
 all_music.sort(key=sort_key)
@@ -78,7 +80,7 @@ for i,s in enumerate(all_music):
         json.dump(s,f)
 
 with open(tools.db_json("artists"),"w") as f:
-    json.dump(artists,f)
+    json.dump(uncapped,f)
 
 print("Making artist list")
 for i,a in enumerate(artists):
