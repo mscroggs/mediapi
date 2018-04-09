@@ -17,7 +17,7 @@ def case(a):
     a = a.lower()
     if a[:4] == "the ":
         a = a[4:]
-    a = "".join(a.split["."])
+    a = "".join(a.split("."))
     return a
 
 def wanted(f):
