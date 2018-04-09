@@ -10,14 +10,34 @@ music_dir = _os.path.join(current_dir,"../Music")
 db_dir = _os.path.join(current_dir,"db")
 player_dir = current_dir
 
+
+def mkdir(dir):
+    try:
+        _os.stat(dir)
+    except:
+        _os.makedirs(dir)
+
+def mkjson(file):
+    if not _os.path.isfile(file):
+        with open(file,"w") as f:
+            _json.dump({},f)
+
+mkdir(player_dir)
+
 def save_blank_info():
     save_info({"play":"off","volume":0})
 
 def db_json(_name,_name2=None):
     if _name2 is None:
-        return _os.path.join(db_dir,str(_name)+".json")
+        folder = db_dir
+        file = _os.path.join(db_dir,str(_name)+".json")
     else:
-        return _os.path.join(db_dir,str(_name),str(_name2)+".json")
+        folder = _os.path.join(db_dir,str(_name))
+        file = _os.path.join(db_dir,str(_name),str(_name2)+".json")
+
+    mkdir(folder)
+    mkjson(file)
+    return file
 
 def read_options():
     try:
