@@ -13,12 +13,20 @@ def sort_key(a):
 def zero(a):
     return a[0]
 
+def remove(a,chars):
+    for c in chars:
+        a = "".join(a.split(c))
+    return a
+
 def case(a):
     a = a.lower()
     if a[:4] == "the ":
         a = a[4:]
-    a = "".join(a.split("."))
-    return a
+    a = " and ".join(a.split("&"))
+    a = remove(a,".-!\"'?,")
+    while "  " in a:
+        a = " ".join(a.split("  "))
+    return
 
 def wanted(f):
     if f[-4:].lower()!=".mp3":
