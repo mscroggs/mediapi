@@ -26,6 +26,10 @@ def case(a):
     a = remove(a,".-!\"'?,")
     while "  " in a:
         a = " ".join(a.split("  "))
+    while a[-1] == " ":
+        a = a[:-1]
+    while a[0] == " ":
+        a = a[1:]
     return a
 
 def wanted(f):
