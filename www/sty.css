@@ -19,7 +19,7 @@ a        {text-decoration:none}
 
 #onoff, .cent {text-align:center;margin-top:10px}
 .cent {left:0;right:0;top:100px;background-color:white;padding-top:5px}
-#skip, #pause {margin-right:40px;margin-left:40px}
+#skip, #pause {margin-right:40px;margin-left:40px;display:none}
 body{margin-top:100px}
 
 #white {background-color:#FFFFFF;position:fixed;height:100px;top:0;left:0;right:0;z-index:2}
