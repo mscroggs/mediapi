@@ -208,8 +208,10 @@ function load_info(){
                 document.getElementById("pause").innerHTML=pause;
                 if(info["play"]=="music"){
                     document.getElementById("skip").style.display="inline";
+                    document.getElementById("pause").style.display="inline";
                 } else {
                     document.getElementById("skip").style.display="none";
+                    document.getElementById("pause").style.display="none";
                 }
                 if(info["play"]=="music" && browser_showing!="music"){
                     start_music_browser(-1)
