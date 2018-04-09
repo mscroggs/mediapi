@@ -62,7 +62,7 @@ for root, dirs, files in os.walk(tools.music_dir):
 
         if case(artist) not in artists:
             artists.append(case(artist))
-            both_artists.append[case(artist),artist]
+            both_artists.append([case(artist),artist])
 
 all_music.sort(key=sort_key)
 both_artists.sort(key=0)
