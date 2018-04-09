@@ -10,6 +10,9 @@ import json
 def sort_key(a):
     return a[2]+" "+a[3]+" "+str(a[0]).zfill(4)
 
+def zero(a):
+    return a[0]
+
 def case(a):
     a = a.lower()
     if a[:4] == "the ":
@@ -64,7 +67,7 @@ for root, dirs, files in os.walk(tools.music_dir):
             both_artists.append([case(artist),artist])
 
 all_music.sort(key=sort_key)
-both_artists.sort(key=0)
+both_artists.sort(key=zero)
 
 artists = [i[0] for i in both_artists]
 uncapped = [i[0] for i in both_artists]
