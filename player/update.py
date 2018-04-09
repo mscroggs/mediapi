@@ -20,6 +20,8 @@ def remove(a,chars):
 
 def case(a):
     a = a.lower()
+    if "clancy brothers" in a:
+        return "clancy brothers"
     if a[:4] == "the ":
         a = a[4:]
     a = " and ".join(a.split("&"))
