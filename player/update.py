@@ -38,6 +38,9 @@ def re_match(rex,s):
 
 
 all_music = []
+
+both_artists = []
+
 artists = []
 uncapped = []
 
@@ -57,11 +60,14 @@ for root, dirs, files in os.walk(tools.music_dir):
         all_music.append(track)
 
         if case(artist) not in artists:
-            uncapped.append(artist)
             artists.append(case(artist))
+            both_artists.append[case(artist),artist]
 
 all_music.sort(key=sort_key)
-artists.sort(key=case)
+both_artists.sort(key=0)
+
+artists = [i[0] for i in both_artists]
+uncapped = [i[0] for i in both_artists]
 
 print("Making albums")
 albums = {}
