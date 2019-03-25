@@ -5,7 +5,7 @@ import player
 import sys
 
 song = sys.argv[1]
-print song
+print(song)
 paused_before = tools.pause()
 
 opts = tools.read_options()
