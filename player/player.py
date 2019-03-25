@@ -7,6 +7,7 @@ class GenericVLCPlayer(object):
     def __init__(self):
         self.vlc_i = vlc.Instance()
         self.vlc_p = self.vlc_i.media_player_new()
+        self.vlc_p.audio_output_set("alsa")
         self.time = int(time())
 
     def tick_over(self):
