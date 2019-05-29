@@ -196,9 +196,9 @@ function load_info(){
                 pause = ""
                 if(info["play"]!="off"){
                     if(info["pause"]){
-                        pause="<a class='pause' href=\"javascript:send_changes('pause=OFF')\"><img src='paused.png'></a>";
+                        pause="<a class=\"pause\" href=\"javascript:send_changes('pause=OFF')\"><img src=\"paused.png\"></a>";
                     } else {
-                        pause="<a class='pause' href=\"javascript:send_changes('pause=ON')\"><img src='playing.png'></a>";
+                        pause="<a class=\"pause\" href=\"javascript:send_changes('pause=ON')\"><img src=\"playing.png\"></a>";
                     }
                     if(first){
                         first = false
