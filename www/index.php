@@ -205,7 +205,9 @@ function load_info(){
                         document.getElementById("thevolume").value = info["volume"]
                     }
                 }
-                document.getElementById("pause").innerHTML=pause;
+                if(document.getElementById("pause").innerHTML!=pause){
+                    document.getElementById("pause").innerHTML=pause;
+                }
                 if(info["play"]=="music"){
                     document.getElementById("skip").style.display="inline";
                     document.getElementById("pause").style.display="inline";
