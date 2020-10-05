@@ -1,0 +1,15 @@
+on:
+  push
+
+jobs:
+  style-checks:
+    name: Run style checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: pip3 install pydocstyle flake8
+      - run: |
+            python3 -m flake8 player
+        name: Run flake8 checks
+      - run: python3 -m pydocstyle player
+        name: Run pydocstyle checks
