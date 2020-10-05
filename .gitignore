@@ -2,13 +2,11 @@ pips.mp3
 *.pyc
 .*
 *.log
-player/options.json
+data/*
 player/db/*.json
 player/db/*/*.json
 player/log
-player/queue.json
-player/info.json
-player/filters.json
+local_config.py
 
 !.gitignore
 

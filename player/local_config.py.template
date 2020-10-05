@@ -1,0 +1,3 @@
+# Use this file to overwrite settings in config.py
+# eg
+data_dir = "/home/pi/.mediapi"
