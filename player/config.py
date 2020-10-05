@@ -7,6 +7,6 @@ data_dir = _os.path.join(_dir, "../data")
 player_dir = _dir
 
 try:
-    from local_config import *
-except:
+    from local_config import *  # noqa: F403,F401
+except ImportError:
     pass
