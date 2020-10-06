@@ -1,9 +1,19 @@
 import config
-import tools
 from mutagen.id3 import ID3
 from mutagen.mp3 import MP3
 import os
 import json
+
+
+def db_json(*args):
+    folder = os.path.join(config.db_dir, *args[:-1])
+    file = os.path.join(folder, f"{args[-1]}.json")
+    if not os.path.isdir(folder):
+        os.makedirs(folder)
+    if not os.path.isfile(file):
+        with open(file, "w") as f:
+            json.dump({}, f)
+    return file
 
 
 def case(a):
@@ -76,15 +86,15 @@ for i, s in enumerate(all_music):
 
 
 for i, s in enumerate(all_music):
-    with open(tools.db_json("full", i), "w") as f:
+    with open(db_json("full", i), "w") as f:
         json.dump(s, f)
 
-with open(tools.db_json("artists"), "w") as f:
+with open(db_json("artists"), "w") as f:
     json.dump(uncapped, f)
 
 print("Making artist list")
 for i, a in enumerate(artists):
-    with open(tools.db_json("by_artist", i), "w") as f:
+    with open(db_json("by_artist", i), "w") as f:
         json.dump({i: s for i, s in enumerate(all_music) if case(s[2]) == a}, f)
 
 maap = {}
@@ -92,24 +102,24 @@ for i, j in enumerate(all_music):
     maap[j[4]] = (i, j)
 
 print("Filtering")
-with open(tools.db_json("filters")) as f:
+with open(db_json("filters")) as f:
     filters = json.load(f)
 
 for i, filt in enumerate(filters):
     print(filt)
-    with open(tools.db_json("filters", i)) as f:
+    with open(db_json("filters", i)) as f:
         ls = [a[4] for a in json.load(f).values()]
     out = {}
-    for l in ls:
+    for a in ls:
         try:
-            out[maap[l][0]] = maap[l][1]
+            out[maap[a][0]] = maap[a][1]
         except KeyError:
             pass
-    with open(tools.db_json("filters", i), "w") as f:
+    with open(db_json("filters", i), "w") as f:
         json.dump(out, f)
 
 print("Saving info")
-with open(tools.db_json("info"), "w") as f:
+with open(db_json("info"), "w") as f:
     json.dump({"length": len(all_music), "artists": len(artists)}, f)
 
 print("Done")

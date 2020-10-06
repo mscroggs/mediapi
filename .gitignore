@@ -5,9 +5,10 @@ data/*
 player/db/*.json
 player/db/*/*.json
 player/log
+player/commands
 local_config.py
 
-!.gitignore
+.*.swp
 
 Music/*
 !Music/The_Noise_Engine
