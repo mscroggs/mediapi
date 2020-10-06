@@ -11,5 +11,3 @@ jobs:
       - run: |
             python3 -m flake8 player
         name: Run flake8 checks
-      - run: python3 -m pydocstyle player
-        name: Run pydocstyle checks
