@@ -1,0 +1,24 @@
+<svg version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+ <g class="spinme">
+   <path fill="#2EA3D0" fill-rule="evenodd" d="M 15, 15 m 0, -14 a 14, 14, 0, 1, 0, 1, 0 Z m 0 11.8 a 2.2, 2.2, 0, 1, 1, -1, 0 Z" />
+   <g transform="translate(-0.5, 0)">
+    <path fill="black" fill-rule="evenodd" d="m14.758 6.8539 0.25892-0.70993c-4.4261-1.5491-4.1181 5.2271 0.05011 3.4996l-0.24221-0.71829c-3.1673 0.93024-2.3531-3.2525-0.06682-2.0713z"/>
+    <path fill="black" fill-rule="evenodd" d="M16.512 6.6618c2.3171-0.30034 2.3086 2.7588 0.0084 2.4555z
+                                              M15.627 9.7855c4.7302 1.0715 4.3751-5.0097 0-3.8086z" />
+   </g>
+ </g>
+
+ <g class="ifon">
+   <path fill="#FFA366" fill-rule="evenodd" d="M 15, 15 m 0, -14 a 14, 14, 0, 1, 0, 1, 0 Z m 0 11.8 a 2.2, 2.2, 0, 1, 1, -1, 0 Z" />
+   <g transform="translate(-0.5, 0)">
+    <path fill="black" fill-rule="evenodd" d="m14.758 6.8539 0.25892-0.70993c-4.4261-1.5491-4.1181 5.2271 0.05011 3.4996l-0.24221-0.71829c-3.1673 0.93024-2.3531-3.2525-0.06682-2.0713z"/>
+    <path fill="black" fill-rule="evenodd" d="M16.512 6.6618c2.3171-0.30034 2.3086 2.7588 0.0084 2.4555z
+                                              M15.627 9.7855c4.7302 1.0715 4.3751-5.0097 0-3.8086z" />
+   </g>
+ </g>
+
+ <circle cx="15" cy="15" r="14" stroke="black" fill="none" stroke-width="1" />
+ <circle cx="15" cy="15" r="2.2" stroke="black" fill="none" stroke-width="1" />
+
+</svg>

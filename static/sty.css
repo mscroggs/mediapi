@@ -1,0 +1,43 @@
+body {margin:0;padding:0}
+
+#topbuttons {width:100%; position: fixed;text-align:center; border-bottom:1px solid black}
+
+button {padding:0}
+button svg {width:25vw;height:25vw;max-width:25vh;max-height:25vh}
+
+button#cd-off svg .ifon {display:none}
+button#cd-off svg .spinme {display:none}
+button#cd-off:hover svg .spinme {display:block; animation: spin 3s linear infinite, fadein 1s ease 1;}
+
+button#cd-on svg .ifon {display:display:block; animation: spin 3s linear infinite;}
+button#cd-on svg .spinme {display:none}
+
+button#mp3-off svg .ifon {display:none}
+button#mp3-off svg .ifhover {display:none}
+button#mp3-off:hover svg .ifhover {display:block; animation: fadein 1s ease 1;}
+button#mp3-off:hover svg .shakeme,
+button#mp3-on svg .shakeme {display:block; animation: shake 0.5s ease infinite;}
+
+button#mp3-on svg .ifon {display:block}
+button#mp3-on svg .ifhover {display:none}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); transform-origin: center center; }
+  25% { transform: rotate(90deg); transform-origin: center center; }
+  50% { transform: rotate(180deg); transform-origin: center center; }
+  75% { transform: rotate(270deg); transform-origin: center center; }
+  100% { transform: rotate(360deg); transform-origin: center center; }
+}
+
+@keyframes shake {
+  0% { transform: translate(0,0);}
+  25% { transform: translate(.03vh,.05vh);}
+  50% { transform: translate(0vh,0vh);}
+  75% { transform: translate(-.03vh,-.05vh);}
+  100% { transform: translate(0vh,0vh);}
+}
+
+@keyframes fadein {
+  0% { opacity:0 }
+  100% { opacity:1 }
+}

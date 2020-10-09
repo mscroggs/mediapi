@@ -1,133 +1,168 @@
-import tools
-import random
 import vlc
-from time import time
+from .library import MusicLibrary
+from mutagen.id3 import ID3
+from time import sleep
 
-class GenericVLCPlayer(object):
-    def __init__(self):
-        self.vlc_i = vlc.Instance()
-        self.vlc_p = self.vlc_i.media_player_new()
-        self.vlc_p.audio_output_set("alsa")
-        self.time = int(time())
+
+class VLCPlayer(object):
+    def __init__(self, player_type):
+        self.player_type = player_type
+
+        self.instance = vlc.Instance()
+
+        self.medialist = self.instance.media_list_new()
+        self.player = self.instance.media_list_player_new()
+        self.player.set_media_list(self.medialist)
+        self.add_to_medialist()
+        self.play()
 
     def tick_over(self):
         pass
 
+    def info(self):
+        raise NotImplementedError
+
+    def add_to_medialist(self, i=None):
+        raise NotImplementedError
+
     def get_pos(self):
-        return self.vlc_p.get_position()
+        return self.player.get_media_player().get_time()
 
     def get_length(self):
-        return self.vlc_p.get_length()
+        return self.player.get_length()
 
     def is_playing(self):
-        return self.vlc_p.get_state() == vlc.State.Playing
+        return self.player.get_state() == vlc.State.Playing
 
     def has_ended(self):
-        return self.vlc_p.get_state() == vlc.State.Ended
+        return self.player.get_state() == vlc.State.Ended
 
     def play(self):
-        self.vlc_p.play()
+        self.player.play()
 
     def unpause(self):
-        self.vlc_p.play()
+        self.player.play()
 
     def pause(self):
-        self.vlc_p.pause()
+        self.player.pause()
 
     def set_volume(self, n):
-        self.vlc_p.audio_set_volume(n)
+        self.player.audio_set_volume(n)
 
     def get_volume(self):
-        return self.vlc_p.audio_get_volume()
+        return self.player.audio_get_volume()
 
     def stop(self):
-        self.vlc_p.stop()
+        self.player.stop()
 
-    def set_media(self, filepath):
-        self.vlc_p.set_media(self.vlc_i.media_new(filepath))
+    def next(self):
+        self.player.next()
 
 
-
-class MusicPlayer(GenericVLCPlayer):
+class CDPlayer(VLCPlayer):
     def __init__(self):
-        super(MusicPlayer, self).__init__()
-        import library
-        self.library = library.MusicLibrary()
-        self.info = {"play":"music","current":-1,"pos":0,"more":None,
-                     "volume":self.get_volume()}
-        self.play_next()
+        super().__init__("cd")
+
+    def add_to_medialist(self, i=None):
+        assert i is None
+        self.medialist.add_media(self.instance.media_new("cdda:///dev/cdrom"))
+
+
+class MusicPlayer(VLCPlayer):
+    def __init__(self):
+        self.library = MusicLibrary()
+        self.shuffle = True
+        self.current_mrl = None
+        self.current_info = None
+
+        super().__init__("mp3")
+
+    def add_to_medialist(self, i=None):
+        if i is None:
+            if self.shuffle:
+                i = self.library.choose_next(self.current_mrl)
+            else:
+                raise NotImplementedError
+        self.medialist.add_media(self.instance.media_new(i))
+
+    def info(self):
+        mrl = self.player.get_media_player().get_media().get_mrl()
+        file = mrl_to_file(mrl)
+        if self.current_mrl != mrl:
+            tags = ID3(file)
+            while self.player.get_media_player().get_media().get_duration() == -1:
+                sleep(1)
+            self.current = mrl
+            self.current_info = {
+                "filename": file,
+                "track_n": get_tag(tags, "TRCK"),
+                "title": get_tag(tags, "TIT2"),
+                "artist": get_tag(tags, "TPE1"),
+                "album": get_tag(tags, "TALB"),
+                "length": self.player.get_media_player().get_media().get_duration()}
+        return self.current_info
+
+    def tick_over(self):
+        media = self.player.get_media_player().get_media()
+        if self.medialist.index_of_item(media) + 1 == len(self.medialist):
+            self.add_to_medialist()
+
+
+def get_tag(tags, t):
+    out = tags[t].text[0]
+    if t == "TRCK":
+        out = int(out.split("/")[0])
+    return out
+
+
+def mrl_to_file(mrl):
+    mrl = mrl[7:]
+    mrl = mrl.replace("%20", " ")
+    return mrl
+
+
+class DummyPlayer(object):
+    def __init__(self):
+        self.player_type = None
+
+    def tick_over(self):
+        pass
+
+    def info(self):
+        return {}
 
     def get_pos(self):
-        return self.vlc_p.get_position()
+        return -1
+
+    def stop(self):
+        pass
+
+    def add_to_medialist(self, i=None):
+        pass
 
     def get_length(self):
-        return self.vlc_p.get_length()
+        return -1
 
-    def tick_over(self):
-        if self.has_ended():
-            self.play_next()
-        if self.get_volume() != tools.volume():
-            self.set_volume(tools.volume())
-            self.info["volume"] = self.get_volume()
-        if int(time())!=self.time:
-            self.info["pos"] = self.get_pos()
-            tools.save_info(self.info)
-            self.time = int(time())
+    def is_playing(self):
+        return False
 
-    def play_track(self,i):
-        self.set_media(self.library.get_filename(i))
-        self.play()
-        self.info["current"] = i
-        self.info["more"] = self.library.get_item(i)
+    def has_ended(self):
+        return False
 
-    def play_next(self):
-        self.play_track(self.get_next())
+    def play(self):
+        pass
 
-    def get_next(self):
-        q = tools.queue()
-        if len(q) > 0:
-            tools.remove_first_from_queue()
-            return q[0]
-        if tools.shuffle():
-            fl = self.library.get_filtered_list().keys()
-            if random.random() < tools.probability() and len(fl)>0:
-                return random.choice(list(fl))
-            else:
-                return random.randrange(self.library.length)
-        return (self.info["current"] + 1) % self.library.length
+    def unpause(self):
+        pass
 
-    def skip(self):
-        self.stop()
-        tools.set_skip_to_false()
-        self.play_next()
+    def pause(self):
+        pass
 
-    def has_queue(self):
-        return len(tools.queue())>0
+    def set_volume(self, n):
+        pass
 
-class RadioPlayer(GenericVLCPlayer):
-    def __init__(self):
-        super(RadioPlayer, self).__init__()
-        import library
-        self.library = library.RadioLibrary()
-        self.info = {"play":"radio","playing":0,"more":None,
-                     "volume":self.get_volume()}
-        self.change_channel(tools.radio_channel())
+    def get_volume(self):
+        pass
 
-    def tick_over(self):
-        rc = tools.radio_channel()
-        if rc != self.info["playing"]:
-            self.change_channel(rc)
-        if self.get_volume() != tools.volume():
-            self.set_volume(tools.volume())
-            self.info["volume"] = self.get_volume()
-        if int(time())!=self.time:
-            self.info["pos"] = self.get_pos()
-            tools.save_info(self.info)
-            self.time = int(time())
-
-    def change_channel(self, rc):
-        self.info["playing"] = rc
-        self.info["more"] = self.library.get_item(rc)
-        self.set_media(self.library.get_url(rc))
-        self.play()
-
+    def next(self):
+        pass
