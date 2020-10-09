@@ -1,4 +1,3 @@
-import config
 import _thread
 from .player import MusicPlayer, CDPlayer, DummyPlayer
 from time import sleep

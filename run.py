@@ -2,7 +2,6 @@
 import web
 import os
 import json
-import config
 from web.template import ALLOWED_AST_NODES
 from player import MediaPi
 
