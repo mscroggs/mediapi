@@ -1,5 +1,5 @@
 import vlc
-from library import MusicLibrary
+from .library import MusicLibrary
 from mutagen.id3 import ID3
 from time import sleep
 
@@ -75,7 +75,7 @@ class MusicPlayer(VLCPlayer):
         self.current_mrl = None
         self.current_info = None
 
-        super().__init__("music")
+        super().__init__("mp3")
 
     def add_to_medialist(self, i=None):
         if i is None:
@@ -119,3 +119,50 @@ def mrl_to_file(mrl):
     mrl = mrl[7:]
     mrl = mrl.replace("%20", " ")
     return mrl
+
+
+class DummyPlayer(object):
+    def __init__(self):
+        self.player_type = None
+
+    def tick_over(self):
+        pass
+
+    def info(self):
+        return {}
+
+    def get_pos(self):
+        return -1
+
+    def stop(self):
+        pass
+
+    def add_to_medialist(self, i=None):
+        pass
+
+    def get_length(self):
+        return -1
+
+    def is_playing(self):
+        return False
+
+    def has_ended(self):
+        return False
+
+    def play(self):
+        pass
+
+    def unpause(self):
+        pass
+
+    def pause(self):
+        pass
+
+    def set_volume(self, n):
+        pass
+
+    def get_volume(self):
+        pass
+
+    def next(self):
+        pass

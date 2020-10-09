@@ -1,0 +1,39 @@
+<svg 
+width="10cm"
+height="10cm"
+version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+ <g class="ifhover">
+  <path d="M 6,3 6,27 24,27 24,6 21,3 z" fill="#2EA3D0" />
+  <g transform="translate(1, 0.5)">
+    <path fill="black" d="m10.674 25.287 0.31738-3.9005h0.83522l1.0774 2.3303 1.0607-2.3219 0.77675-0.0084 0.33409 3.9339-0.86027-0.03341-0.13364-2.5641-0.88533 2.088-0.62641 0.0084-0.90204-2.0964-0.12528 2.5892z"/>
+    <path fill="black" fill-rule="evenodd" d="m15.869 25.295-0.0084-3.842c3.6129-0.74358 3.9725 2.6997 0.87698 2.5391l0.0167 1.3029 z"/>
+    <path fill="#2EA3D0" fill-rule="evenodd" d="m16.746 22.13-0.0083 1.1108c1.671 0.03079 1.5623-1.2016 0.0083-1.1108 z" />
+    <path fill="black" d="m19.243 21.646 0.31738 0.61806c1.4874-0.64059 1.7598 0.72232 0.31738 0.65147l0.0084 0.66817c2.2711 0.18182 0.76118 1.6268-0.53454 0.89368l-0.15869 0.68488c1.7082 0.7388 3.7516-0.58184 2.063-1.9878 1.5609-1.2773-0.81861-2.4421-2.0129-1.5284z"/>
+   </g>
+ </g>
+
+ <g class="ifon">
+  <path d="M 6,3 6,27 24,27 24,6 21,3 z" fill="#FFA366" />
+  <g transform="translate(1, 0.5)">
+    <path fill="black" d="m10.674 25.287 0.31738-3.9005h0.83522l1.0774 2.3303 1.0607-2.3219 0.77675-0.0084 0.33409 3.9339-0.86027-0.03341-0.13364-2.5641-0.88533 2.088-0.62641 0.0084-0.90204-2.0964-0.12528 2.5892z"/>
+    <path fill="black" fill-rule="evenodd" d="m15.869 25.295-0.0084-3.842c3.6129-0.74358 3.9725 2.6997 0.87698 2.5391l0.0167 1.3029 z"/>
+    <path fill="#FFA366" fill-rule="evenodd" d="m16.746 22.13-0.0083 1.1108c1.671 0.03079 1.5623-1.2016 0.0083-1.1108 z" />
+    <path fill="black" d="m19.243 21.646 0.31738 0.61806c1.4874-0.64059 1.7598 0.72232 0.31738 0.65147l0.0084 0.66817c2.2711 0.18182 0.76118 1.6268-0.53454 0.89368l-0.15869 0.68488c1.7082 0.7388 3.7516-0.58184 2.063-1.9878 1.5609-1.2773-0.81861-2.4421-2.0129-1.5284z"/>
+   </g>
+ </g>
+
+ <g class="shakeme">
+   <ellipse cx="10" cy="20.5" rx="2" ry="1.2" stroke="black" stroke-width="1" fill="black" />
+   <ellipse cx="19" cy="18" rx="2" ry="1.2" stroke="black" stroke-width="1" fill="black" />
+   <path d="M 12,20.5 12,11" stroke="black" stroke-width="1" stroke-linecap="round" />
+   <path d="M 21,18 21,8" stroke="black" stroke-width="1" stroke-linecap="round" />
+   <path d="M 12,13.5 21,10.5" stroke="black" stroke-width="1" stroke-linecap="round" />
+   <path d="M 12,12 21,9 21,7.5 12,10.5 z" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+ </g>
+
+ <path d="M 6,3 6,27 24,27 24,6 21,3 z" stroke="black" stroke-width="1" stroke-linecap="round" fill="none" stroke-linejoin="round" />
+ <path d="M 24,6 21,3 21,6 z" stroke="black" stroke-width="1" stroke-linecap="round" fill="black" stroke-linejoin="round" />
+
+
+</svg>

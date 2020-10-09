@@ -1,11 +1,4 @@
-pips.mp3
 *.pyc
-*.log
-data/*
-player/db/*.json
-player/db/*/*.json
-player/log
-player/commands
 local_config.py
 
 .*.swp
