@@ -33,9 +33,9 @@ def make_more_buttons():
     out = ""
     if player.player_type() == "cd" or player.player_type() == "mp3":
         if player.is_playing():
-            out += smaller_svg_button("pause.svg", "PASS", "play")
+            out += smaller_svg_button("pause.svg", "PAUSE", "play")
         else:
-            out += smaller_svg_button("pause.svg", "PASS", "pause")
+            out += smaller_svg_button("pause.svg", "UNPAUSE", "pause")
         out += smaller_svg_button("skip.svg", "SKIP", "skip")
     return out
 
@@ -60,7 +60,6 @@ class Root:
         self.head += "<title>MediaPi</title>\n"
         self.head += "<link rel='shortcut icon' href='/static/favicon.ico' type='image/x-icon'>\n"
         self.head += "<link rel='stylesheet' href='/static/sty.css' type='text/css'>\n"
-        self.head += "<script type='text/javascript' src='/static/player.js'></script>\n"
         self.head += "</head>\n"
         self.head += "<body>\n"
         self.head += "<div id='topbuttons'>\n"
@@ -98,6 +97,10 @@ class GetButtons:
         data = {"player": player.player_type(),
                 "buttons": make_buttons(),
                 "more_buttons": make_more_buttons()}
+        if player.is_playing():
+            data["playing"] = "play"
+        else:
+            data["playing"] = "pause"
         return json.dumps(data)
 
 

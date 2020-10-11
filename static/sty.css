@@ -36,15 +36,15 @@ button#mp3-on svg .ifhover {display:none}
 button#play {background-color:#FFA366}
 button#pause {background-color:#FFA366}
 button#pause svg .pause,
+button#play:hover svg .pause {display:block;animation: updown .4s linear infinite}
 button#pause:hover svg .play,
-button#play svg .play,
-button#play:hover svg .pause {display:block;animation: circle .7s linear infinite}
+button#play svg .play {display:block;animation: leftright .4s linear infinite}
 button#pause svg .play,
 button#pause:hover svg .pause,
 button#play svg .pause,
 button#play:hover svg .play {display:none}
 button#skip:hover svg .skip
-{animation: circle .7s linear infinite}
+{animation: leftright .4s linear infinite}
 
 button#play:hover,
 button#pause:hover,
@@ -66,12 +66,16 @@ button#skip:hover {background-color:#2EA3D0;}
   100% { transform: translate(0vh,0vh);}
 }
 
-@keyframes circle {
+@keyframes leftright {
   0% { transform: translate(.1vh,0);}
-  25% { transform: translate(0,.1vh);}
   50% { transform: translate(-.1vh,0);}
-  75% { transform: translate(0,-.1vh);}
   100% { transform: translate(.1vh,0);}
+}
+
+@keyframes updown {
+  0% { transform: translate(0,.1vh);}
+  50% { transform: translate(0,-.1vh);}
+  100% { transform: translate(0,.1vh);}
 }
 
 @keyframes fadein {
