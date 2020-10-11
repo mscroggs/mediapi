@@ -1,9 +1,14 @@
 body {margin:0;padding:0}
 
-#topbuttons {width:100%; position: fixed;text-align:center; border-bottom:1px solid black}
+#topbuttons {width:100%; text-align:center;}
+#button-container {height:15vh;padding:0;width:100%;text-align:center;border-bottom:.5vh solid black;border-top:.5vh solid black}
 
-button {padding:0}
-button svg {width:25vw;height:25vw;max-width:25vh;max-height:25vh}
+#progress-bar {background-color:#FFA366;height:15vh;margin-bottom:-15vh}
+#song-info {height:12vh;margin-bottom:-15vh; width:100vw;text-align:left;padding:1.5vh;font-size:2vh;line-height:4vh}
+
+button {padding:0; background-color:white; padding:1vh; margin:1vh; border:.5vh solid black}
+button svg {width:20vh;height:20vh}
+button.small svg {width:10vh;height:10vh}
 
 button#cd-off svg .ifon {display:none}
 button#cd-off svg .spinme {display:none}
@@ -11,6 +16,13 @@ button#cd-off:hover svg .spinme {display:block; animation: spin 3s linear infini
 
 button#cd-on svg .ifon {display:display:block; animation: spin 3s linear infinite;}
 button#cd-on svg .spinme {display:none}
+
+button#cd-off svg .stop,
+button#cd-on svg .stop,
+button#mp3-off svg .stop,
+button#mp3-on svg .stop {display:none}
+button#cd-on:hover svg .stop,
+button#mp3-on:hover svg .stop {display:block}
 
 button#mp3-off svg .ifon {display:none}
 button#mp3-off svg .ifhover {display:none}
@@ -20,6 +32,23 @@ button#mp3-on svg .shakeme {display:block; animation: shake 0.5s ease infinite;}
 
 button#mp3-on svg .ifon {display:block}
 button#mp3-on svg .ifhover {display:none}
+
+button#play {background-color:#FFA366}
+button#pause {background-color:#FFA366}
+button#pause svg .pause,
+button#pause:hover svg .play,
+button#play svg .play,
+button#play:hover svg .pause {display:block;animation: circle .7s linear infinite}
+button#pause svg .play,
+button#pause:hover svg .pause,
+button#play svg .pause,
+button#play:hover svg .play {display:none}
+button#skip:hover svg .skip
+{animation: circle .7s linear infinite}
+
+button#play:hover,
+button#pause:hover,
+button#skip:hover {background-color:#2EA3D0;}
 
 @keyframes spin {
   0% { transform: rotate(0deg); transform-origin: center center; }
@@ -35,6 +64,14 @@ button#mp3-on svg .ifhover {display:none}
   50% { transform: translate(0vh,0vh);}
   75% { transform: translate(-.03vh,-.05vh);}
   100% { transform: translate(0vh,0vh);}
+}
+
+@keyframes circle {
+  0% { transform: translate(.1vh,0);}
+  25% { transform: translate(0,.1vh);}
+  50% { transform: translate(-.1vh,0);}
+  75% { transform: translate(0,-.1vh);}
+  100% { transform: translate(.1vh,0);}
 }
 
 @keyframes fadein {

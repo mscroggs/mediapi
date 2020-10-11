@@ -1,7 +1,4 @@
-<svg 
-width="10cm"
-height="10cm"
-version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
  <g class="ifhover">
   <path d="M 6,3 6,27 24,27 24,6 21,3 z" fill="#2EA3D0" />
@@ -35,5 +32,9 @@ version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" xmlns:cc="h
  <path d="M 6,3 6,27 24,27 24,6 21,3 z" stroke="black" stroke-width="1" stroke-linecap="round" fill="none" stroke-linejoin="round" />
  <path d="M 24,6 21,3 21,6 z" stroke="black" stroke-width="1" stroke-linecap="round" fill="black" stroke-linejoin="round" />
 
+ <g class="stop">
+   <path d="M 0,0 30,0 30,30 0,30 z" stroke="none" fill="white" fill-opacity="0.4"/>
+   <path d="M 10,10 10,20 20,20 20,10 z" stroke="none" fill="red" />
+ </g>
 
 </svg>
