@@ -1,6 +1,6 @@
 from threading import Thread
 from time import sleep
-from .player import MusicPlayer, CDPlayer, DummyPlayer
+from .player import MP3Player, CDPlayer, DummyPlayer
 
 
 class MediaPi:
@@ -22,7 +22,7 @@ class MediaPi:
                 if i[1] == "CD":
                     self.player = CDPlayer()
                 elif i[1] == "MP3":
-                    self.player = MusicPlayer()
+                    self.player = MP3Player()
                 else:
                     raise ValueError(f"Unknown player type: {i[1]}")
             elif i[0] == "PAUSE":

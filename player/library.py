@@ -10,6 +10,7 @@ class MusicLibrary:
             data = json.load(f)
         self.length = data["length"]
         self.artists = data["artists"]
+        self._artistlist = None
 
     def get_track_info(self, i):
         with open(os.path.join(config.db_dir, "full", f"{i}.json")) as f:
@@ -29,3 +30,13 @@ class MusicLibrary:
         while next == current:
             next = random.randrange(self.length)
         return self.get_filename(next)
+
+    def get_artists(self):
+        if self._artistlist is None:
+            with open(os.path.join(config.db_dir, "artists.json")) as f:
+                self._artistlist = json.load(f)
+        return self._artistlist
+
+    def get_artist(self, i):
+        with open(os.path.join(config.db_dir, f"by_artist/{i}.json")) as f:
+            return json.load(f)

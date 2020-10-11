@@ -68,17 +68,18 @@ class CDPlayer(VLCPlayer):
         super().__init__("cd")
         musicbrainzngs.set_useragent("MediaPi", f"{config.version}", "https://github.com/mscroggs/mediapi")
 
-        self.cd_data = None
+        self.current_info = None
+        self.tracks = None
+        self.current_track = -1
 
-        disc = discid.read()
         try:
+            disc = discid.read()
             result = musicbrainzngs.get_releases_by_discid(disc.id, includes=["artists", "recordings"])
-        except musicbrainzngs.ResponseError:
+        except:
             return
         if result.get("disc"):
             self.tracks = [t["recording"]["title"]
                            for t in result["disc"]["release-list"][0]["medium-list"][0]["track-list"]]
-            self.current_track = 0
             self.current_info = {"artist": result["disc"]["release-list"][0]["artist-credit-phrase"],
                                  "album": result["disc"]["release-list"][0]["title"]}
 
@@ -87,6 +88,8 @@ class CDPlayer(VLCPlayer):
         self.medialist.add_media(self.instance.media_new("cdda:///dev/cdrom"))
 
     def info(self):
+        if self.current_info is None:
+            return {}
         media = self.player.get_media_player().get_media()
         track_n = self.medialist[0].subitems().index_of_item(media)
         if self.current_track != track_n:
@@ -98,7 +101,7 @@ class CDPlayer(VLCPlayer):
         return self.current_info
 
 
-class MusicPlayer(VLCPlayer):
+class MP3Player(VLCPlayer):
     def __init__(self):
         self.library = MusicLibrary()
         self.shuffle = True

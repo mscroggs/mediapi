@@ -1,5 +1,3 @@
-var current_player = "none"
-
 function send_command(c){
     var sender;
     if(window.XMLHttpRequest){sender=new XMLHttpRequest();}
@@ -22,9 +20,18 @@ function load_buttons() {
       if (this.readyState == 4 && this.status == 200) {
         data = JSON.parse(this.responseText)
         if(data["player"] != current_player) {
-          current_player = data["player"] + data["playing"]
+          current_player = data["player"] + "-" + data["playing"]
           document.getElementById("topbuttons").innerHTML = data["buttons"];
           document.getElementById("buttons").innerHTML = data["more_buttons"];
+
+          if(current_view != data["player"]) {
+            current_view = data["player"]
+            if(current_view == "mp3"){
+              show_all_artists()
+            } else {
+              clear_listarea()
+            }
+          }
         }
       }
     };
@@ -54,3 +61,42 @@ function load_song_data() {
 }
 
 setInterval(load_song_data, 500);
+
+function show_all_artists() {
+    var artistloader;
+    if(window.XMLHttpRequest){artistloader=new XMLHttpRequest();}
+    else {artistloader=new ActiveXObject('Microsoft.XMLHTTP');}
+    artistloader.open("GET", "/get_artist_list");
+    artistloader.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("list-area").innerHTML = this.responseText;
+      }
+    };
+    artistloader.send();
+}
+
+function show_artist(i) {
+    var artistloader;
+    if(window.XMLHttpRequest){artistloader=new XMLHttpRequest();}
+    else {artistloader=new ActiveXObject('Microsoft.XMLHTTP');}
+    artistloader.open("POST", "/get_artist");
+    artistloader.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("list-area").innerHTML = this.responseText;
+      }
+    };
+    artistloader.send(i);
+}
+
+function clear_listarea() {
+    document.getElementById("list-area").innerHTML = "";
+}
+
+function add_to_queue(ls) {
+    var sender;
+    if(window.XMLHttpRequest){sender=new XMLHttpRequest();}
+    else {sender=new ActiveXObject('Microsoft.XMLHTTP');}
+    sender.open("POST", "/add_to_queue", true);
+    sender.setRequestHeader("Content-Type", "application/json");
+    sender.send(JSON.stringify(ls));
+}

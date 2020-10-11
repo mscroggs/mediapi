@@ -1,10 +1,10 @@
 body {margin:0;padding:0}
 
 #topbuttons {width:100%; text-align:center;}
-#button-container {height:15vh;padding:0;width:100%;text-align:center;border-bottom:.5vh solid black;border-top:.5vh solid black}
+#button-container {height:15vh;padding:0;width:100%;text-align:center;border-bottom:.5vh solid black;border-top:.5vh solid black;margin-bottom:2vh}
 
 #progress-bar {background-color:#FFA366;height:15vh;margin-bottom:-15vh}
-#song-info {height:12vh;margin-bottom:-15vh; width:100vw;text-align:left;padding:1.5vh;font-size:2vh;line-height:4vh}
+#song-info {height:12vh;margin-bottom:-15vh; width:97vw;text-align:left;padding-top:1.5vh;padding-bottom:1.5vh;padding-left:.5vw;padding-right:.5vw;font-size:2vh;line-height:4vh}
 
 #version {position:fixed;top:0;right:0;padding:.2vh;font-size:1vh;background-color:white}
 
@@ -51,6 +51,23 @@ button#skip:hover svg .skip
 button#play:hover,
 button#pause:hover,
 button#skip:hover {background-color:#2EA3D0;}
+
+a.listlink {padding-left:.5vw;padding-right:.5vw;width:99vw;display:block; font-size:2vh;line-height:4vh;text-decoration:none}
+a.listlink.t0 {background-color:#CCCCFF; color:#000000}
+a.listlink.t1 {background-color:white; color:#000044}
+a.listlink.t1:hover,
+a.listlink.t0:hover {background-color:#FFA366}
+
+a.listlink .number {display:inline-block;vertical-align:bottom;overflow:hidden;width:2vw}
+a.listlink .title {display:inline-block;vertical-align:bottom;overflow:hidden;width:45vw}
+a.listlink .artist {display:inline-block;vertical-align:bottom;overflow:hidden;width:45vw}
+
+.artist-title {margin-top:3vh;text-align:center;font-size:5vh;font-weight:bold}
+a.albumlink {display:block;padding-left:.5vw;padding-right:.5vw;width:99vw;padding-top:1vh;text-align:center;font-size:3vh;padding-bottom:1vh;color:black;font-weight:bold;text-decoration:none}
+a.albumlink:hover {background-color:#FFA366}
+
+a.back {display:block;padding-left:.5vw;padding-right:.5vw;width:99vw;padding-top:1vh;text-align:center;font-size:2vh;padding-bottom:1vh;color:black;text-decoration:none}
+a.back:hover {background-color:#FFA366}
 
 @keyframes spin {
   0% { transform: rotate(0deg); transform-origin: center center; }
