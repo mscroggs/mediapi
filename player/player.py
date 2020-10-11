@@ -1,3 +1,4 @@
+from urllib.parse import unquote
 import vlc
 from .library import MusicLibrary
 from mutagen.id3 import ID3
@@ -117,8 +118,7 @@ def get_tag(tags, t):
 
 def mrl_to_file(mrl):
     mrl = mrl[7:]
-    mrl = mrl.replace("%20", " ")
-    return mrl
+    return unquote(mrl)
 
 
 class DummyPlayer(object):
