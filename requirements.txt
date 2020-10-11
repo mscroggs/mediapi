@@ -1,3 +1,4 @@
 mutagen
 python-vlc
 web.py
+musicbrainzngs

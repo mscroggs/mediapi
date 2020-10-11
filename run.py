@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import config
 import web
 import os
 import json
@@ -62,6 +63,7 @@ class Root:
         self.head += "<link rel='stylesheet' href='/static/sty.css' type='text/css'>\n"
         self.head += "</head>\n"
         self.head += "<body>\n"
+        self.head += f"<div id='version'><a href='https://github.com/mscroggs/mediapi'>MediaPi v{config.version}</a></div>"
         self.head += "<div id='topbuttons'>\n"
 
         self.mid = "</div>\n"

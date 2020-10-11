@@ -6,6 +6,9 @@ music_dir = _os.path.join(_this_dir, "Music")
 db_dir = _os.path.join(_dir, "db")
 data_dir = _os.path.join(_dir, "data")
 
+with open(_os.path.join(_this_dir, "VERSION")) as f:
+    version = f.read()
+
 try:
     from local_config import *  # noqa: F403,F401
 except ImportError:

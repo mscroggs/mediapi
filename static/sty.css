@@ -6,6 +6,8 @@ body {margin:0;padding:0}
 #progress-bar {background-color:#FFA366;height:15vh;margin-bottom:-15vh}
 #song-info {height:12vh;margin-bottom:-15vh; width:100vw;text-align:left;padding:1.5vh;font-size:2vh;line-height:4vh}
 
+#version {position:fixed;top:0;right:0;padding:.2vh;font-size:1vh;background-color:white}
+
 button {padding:0; background-color:white; padding:1vh; margin:1vh; border:.5vh solid black}
 button svg {width:20vh;height:20vh}
 button.small svg {width:10vh;height:10vh}

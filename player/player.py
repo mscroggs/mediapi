@@ -1,5 +1,8 @@
 from urllib.parse import unquote
+import config
 import vlc
+import musicbrainzngs
+import discid
 from .library import MusicLibrary
 from mutagen.id3 import ID3
 from time import sleep
@@ -63,10 +66,34 @@ class VLCPlayer(object):
 class CDPlayer(VLCPlayer):
     def __init__(self):
         super().__init__("cd")
+        musicbrainzngs.set_useragent("MediaPi", f"{config.version}", "https://github.com/mscroggs/mediapi")
+
+        self.cd_data = None
+
+        disc = discid.read()
+        try:
+            result = musicbrainzngs.get_releases_by_discid(disc.id, includes=["artists", "recordings"])
+        except musicbrainzngs.ResponseError:
+            return
+        if result.get("disc"):
+            self.tracks = [t["recording"]["title"]
+                           for t in result["disc"]["release-list"][0]["medium-list"][0]["track-list"]]
+            self.current_track = 0
+            self.current_info = {"artist": result["disc"]["release-list"][0]["artist-credit-phrase"],
+                                 "album": result["disc"]["release-list"][0]["title"]}
 
     def add_to_medialist(self, i=None):
         assert i is None
         self.medialist.add_media(self.instance.media_new("cdda:///dev/cdrom"))
+
+    def info(self):
+        media = self.player.get_media_player().get_media()
+        track_n = self.medialist.index_of_item(media)
+        if self.current_track != track_n:
+            self.current_track = track_n
+            self.current_info["title"] = self.tracks[track_n]
+            self.current_info["length"] =  self.player.get_media_player().get_media().get_duration()
+        return self.current_info
 
 
 class MusicPlayer(VLCPlayer):
