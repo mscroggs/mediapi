@@ -67,7 +67,7 @@ def get_artist_list():
 def get_artist(i):
     if player.player_type() != "mp3":
         return ""
-    out = f"<a class='back' href='javascript:show_all_artists()'><< back to artists</a>"
+    out = "<a class='back' href='javascript:show_all_artists()'><< back to artists</a>"
     out += f"<div class='artist-title'>{player.player.library.get_artists()[i]}</div>"
     album = None
     for i, (a, t) in enumerate(player.player.library.get_artist(i).items()):
@@ -79,7 +79,7 @@ def get_artist(i):
         out += f"<span class='title'>{t[1]}</span>"
         out += f"<span class='artist'>{t[2]}</span>"
         out += "</a>"
-    out += f"<a class='back' href='javascript:show_all_artists()'><< back to artists</a>"
+    out += "<a class='back' href='javascript:show_all_artists()'><< back to artists</a>"
     return out
     return f"{player.player.library.get_artist(i)}"
     return "".join([f"<a class='listlink t{i%2}' href='javascript:show_artist({i})'>{a}</div>"
