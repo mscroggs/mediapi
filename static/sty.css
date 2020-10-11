@@ -58,10 +58,10 @@ a.listlink.t1, .listlink.t1 {background-color:white; color:#000044}
 a.listlink.t1:hover,
 a.listlink.t0:hover {background-color:#FFA366}
 
-a.listlink .number, .listlink .number {display:inline-block;vertical-align:bottom;overflow:hidden;width:2vw}
-a.listlink .title, .listlink .title {display:inline-block;vertical-align:bottom;overflow:hidden;width:50vw}
-a.listlink .artist, .listlink .artist {display:inline-block;vertical-align:bottom;overflow:hidden;width:20vw}
-a.listlink .album, .listlink .album {display:inline-block;vertical-align:bottom;overflow:hidden;width:20vw}
+a.listlink .number, .listlink .number {display:inline-block;vertical-align:bottom;white-space: nowrap;overflow:hidden;width:2vw}
+a.listlink .title, .listlink .title {display:inline-block;vertical-align:bottom;white-space: nowrap;overflow:hidden;width:50vw}
+a.listlink .artist, .listlink .artist {display:inline-block;vertical-align:bottom;white-space: nowrap;overflow:hidden;width:20vw}
+a.listlink .album, .listlink .album {display:inline-block;vertical-align:bottom;white-space: nowrap;overflow:hidden;width:20vw}
 
 .artist-title {margin-top:3vh;text-align:center;font-size:5vh;font-weight:bold}
 .album-title, a.album-title {display:block;padding-left:.5vw;padding-right:.5vw;width:99vw;padding-top:1vh;text-align:center;font-size:3vh;padding-bottom:1vh;color:black;font-weight:bold;text-decoration:none}
