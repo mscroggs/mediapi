@@ -33,7 +33,7 @@ class VLCPlayer(object):
         return self.player.get_media_player().get_time()
 
     def get_length(self):
-        return self.player.get_length()
+        return self.player.get_media_player().get_length()
 
     def is_playing(self):
         return self.player.get_state() == vlc.State.Playing
@@ -90,9 +90,11 @@ class CDPlayer(VLCPlayer):
         media = self.player.get_media_player().get_media()
         track_n = self.medialist[0].subitems().index_of_item(media)
         if self.current_track != track_n:
+            while self.get_length() == -1:
+                sleep(1)
             self.current_track = track_n
             self.current_info["title"] = self.tracks[track_n]
-            self.current_info["length"] = self.player.get_media_player().get_media().get_duration()
+            self.current_info["length"] = self.get_length()
         return self.current_info
 
 
@@ -118,7 +120,7 @@ class MusicPlayer(VLCPlayer):
         file = mrl_to_file(mrl)
         if self.current_mrl != mrl:
             tags = ID3(file)
-            while self.player.get_media_player().get_media().get_duration() == -1:
+            while self.get_length() == -1:
                 sleep(1)
             self.current = mrl
             self.current_info = {

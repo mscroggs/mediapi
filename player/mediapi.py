@@ -57,6 +57,8 @@ class MediaPi:
 
         def tick_over(self):
             self.player.tick_over()
+            if self.player.has_ended():
+                self.player = DummyPlayer()
 
     instance = None
 
