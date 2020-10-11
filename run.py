@@ -15,7 +15,8 @@ urls = (
     '/get_song_data', 'GetSongData',
     '/get_artist_list', 'GetArtistList',
     '/add_to_queue', 'AddToQueue',
-    '/get_artist', 'GetArtist')
+    '/get_artist', 'GetArtist',
+    '/get_track_list', 'GetTrackList')
 app = web.application(urls, globals())
 player = MediaPi()
 
@@ -84,7 +85,7 @@ def get_artist(i):
     return out
 
 
-def get_tracklist():
+def get_track_list():
     if player.player_type() != "cd":
         return ""
     info = player.get_info()
@@ -138,6 +139,7 @@ class Root:
         out += make_more_buttons()
         out += self.mid2
         out += get_artist_list()
+        out += get_track_list()
         out += self.foot
         if player.is_playing():
             out += f"var current_player = '{player.player_type()}-play'\n"
@@ -177,6 +179,11 @@ class GetSongData:
 class GetArtistList:
     def GET(self):
         return get_artist_list()
+
+
+class GetTrackList:
+    def GET(self):
+        return get_track_list()
 
 
 class GetArtist:

@@ -28,6 +28,8 @@ function load_buttons() {
             current_view = data["player"]
             if(current_view == "mp3"){
               show_all_artists()
+            } else if(current_view == "cd"){
+              show_track_list()
             } else {
               clear_listarea()
             }
@@ -88,6 +90,19 @@ function show_artist(i) {
       }
     };
     artistloader.send(i);
+}
+
+function show_track_list() {
+    var tracklistloader;
+    if(window.XMLHttpRequest){tracklistloader=new XMLHttpRequest();}
+    else {tracklistloader=new ActiveXObject('Microsoft.XMLHTTP');}
+    tracklistloader.open("GET", "/get_track_list");
+    tracklistloader.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("list-area").innerHTML = this.responseText;
+      }
+    };
+    tracklistloader.send();
 }
 
 function clear_listarea() {
