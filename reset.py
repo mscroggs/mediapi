@@ -32,7 +32,7 @@ if not os.path.isdir(db_dir):
     os.makedirs(db_dir)
 
 if local_config != "":
-    with open("local_config.py", "w") as f:
+    with open(os.path.join(config._this_dir, "local_config.py"), "w") as f:
         f.write(local_config)
 
 response = None
