@@ -60,7 +60,7 @@ def smaller_svg_button(filename, command, id):
 def get_artist_list():
     if player.player_type() != "mp3":
         return ""
-    return "".join([f"<a class='listlink t{i%2}' href='javascript:show_artist({i})'>{a}</div>"
+    return "".join([f"<a id=artist{i}'' class='listlink t{i%2}' href='javascript:show_artist({i})'>{a}</div>"
                     for i, a in enumerate(player.player.library.get_artists())])
 
 
@@ -73,17 +73,31 @@ def get_artist(i):
     for i, (a, t) in enumerate(player.player.library.get_artist(i).items()):
         if t[3] != album:
             album = t[3]
-            out += f"<a class='albumlink' href='javascript:add_to_queue([{t[6]}])'>{album}</a>"
+            out += f"<a class='album-title' href='javascript:add_to_queue([{t[6]}])'>{album}</a>"
         out += f"<a class='listlink t{i%2}' href='javascript:add_to_queue([{a}])'>"
         out += f"<span class='number'>{t[0]}</span>"
         out += f"<span class='title'>{t[1]}</span>"
         out += f"<span class='artist'>{t[2]}</span>"
+        out += f"<span class='album'>{t[3]}</span>"
         out += "</a>"
     out += "<a class='back' href='javascript:show_all_artists()'><< back to artists</a>"
     return out
-    return f"{player.player.library.get_artist(i)}"
-    return "".join([f"<a class='listlink t{i%2}' href='javascript:show_artist({i})'>{a}</div>"
-                    for i, a in enumerate(player.player.library.get_artist(i))])
+
+
+def get_tracklist():
+    if player.player_type() != "cd":
+        return ""
+    info = player.get_info()
+    out = f"<div class='artist-title'>{info['artist']}</div>"
+    out += f"<div class='album-title'>{info['album']}</div>"
+    for i, title in enumerate(player.player.tracks):
+        out += f"<div class='listlink t{i%2}''>"
+        out += f"<span class='number'>{i+1}</span>"
+        out += f"<span class='title'>{title}</span>"
+        out += f"<span class='artist'>{info['artist']}</span>"
+        out += f"<span class='album'>{info['album']}</span>"
+        out += "</div>"
+    return out
 
 
 class Root:
@@ -95,7 +109,7 @@ class Root:
         self.head += "<link rel='stylesheet' href='/static/sty.css' type='text/css'>\n"
         self.head += "</head>\n"
         self.head += "<body>\n"
-        self.head += f"<div id='version'><a href='https://github.com/mscroggs/mediapi'>MediaPi v{config.version}</a></div>"
+        self.head += f"<div id='version'><a id='top' href='https://github.com/mscroggs/mediapi'>MediaPi v{config.version}</a></div>"
         self.head += "<div id='topbuttons'>\n"
 
         self.mid = "</div>\n"

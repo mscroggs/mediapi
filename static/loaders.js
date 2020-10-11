@@ -62,7 +62,7 @@ function load_song_data() {
 
 setInterval(load_song_data, 500);
 
-function show_all_artists() {
+function show_all_artists(i) {
     var artistloader;
     if(window.XMLHttpRequest){artistloader=new XMLHttpRequest();}
     else {artistloader=new ActiveXObject('Microsoft.XMLHTTP');}
@@ -70,6 +70,7 @@ function show_all_artists() {
     artistloader.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById("list-area").innerHTML = this.responseText;
+        if(n>=10){location.hash = "artist" + (n-10)}
       }
     };
     artistloader.send();
@@ -83,6 +84,7 @@ function show_artist(i) {
     artistloader.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById("list-area").innerHTML = this.responseText;
+        location.hash = "top"
       }
     };
     artistloader.send(i);
