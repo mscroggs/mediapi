@@ -88,11 +88,11 @@ class CDPlayer(VLCPlayer):
 
     def info(self):
         media = self.player.get_media_player().get_media()
-        track_n = self.medialist.index_of_item(media)
+        track_n = self.medialist[0].subitems().index_of_item(media)
         if self.current_track != track_n:
             self.current_track = track_n
             self.current_info["title"] = self.tracks[track_n]
-            self.current_info["length"] =  self.player.get_media_player().get_media().get_duration()
+            self.current_info["length"] = self.player.get_media_player().get_media().get_duration()
         return self.current_info
 
 
